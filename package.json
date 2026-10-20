@@ -1,0 +1,23 @@
+{
+  "name": "applynora",
+  "version": "1.0.0",
+  "description": "ApplyNora project foundation",
+  "private": true,
+  "scripts": {
+    "test": "vitest run"
+  },
+  "packageManager": "pnpm@10.30.3",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/jest": "^30.0.0",
+    "eslint": "^10.13.0",
+    "jest": "^30.5.2",
+    "prettier": "^3.9.10",
+    "ts-jest": "^29.4.15",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.72.0",
+    "vitest": "^4.1.12",
+    "zod": "^4.6.7"
+  },
+  "type": "module"
+}
