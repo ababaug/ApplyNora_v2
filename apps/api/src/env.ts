@@ -7,6 +7,7 @@ const envSchema = z.object({
   POSTGRES_DB: z.string().default('applynora'),
   REDIS_HOST: z.string().default('localhost'),
   REDIS_PORT: z.coerce.number().default(6379),
+  DATABASE_URL: z.string().default('postgresql://applynora:password@localhost:5432/applynora?schema=public'),
 });
 
 const _env = envSchema.safeParse(process.env);
