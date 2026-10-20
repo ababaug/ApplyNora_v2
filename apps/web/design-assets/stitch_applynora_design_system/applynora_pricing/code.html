@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary-fixed": "#380039", "on-primary-fixed": "#35003f", "success": "#059669", "secondary-fixed": "#ffd7f6", "on-background": "#111c2d", "tertiary-fixed-dim": "#fface9", "secondary": "#9c2c9c", "primary-fixed": "#ffd6fe", "surface-blush-subtle": "#FFF5F9", "on-secondary-fixed-variant": "#7f0682", "on-error": "#ffffff", "outline-variant": "#d4c1d2", "inverse-on-surface": "#ecf1ff", "on-secondary-container": "#7d0380", "tertiary-fixed": "#ffd7f1", "surface-dim": "#cfdaf2", "on-tertiary-container": "#ffb5ea", "surface": "#f9f9ff", "primary": "#6e0081", "on-primary": "#ffffff", "on-tertiary-fixed": "#3a0033", "tertiary": "#68235d", "surface-bright": "#f9f9ff", "on-secondary": "#ffffff", "outline": "#837281", "on-error-container": "#93000a", "background": "#f9f9ff", "surface-container-highest": "#d8e3fb", "surface-blush": "#FFC0DE", "border-lavender": "#E2E0EC", "surface-container-lowest": "#ffffff", "on-surface-variant": "#504250", "surface-container-low": "#f0f3ff", "secondary-container": "#ff86f9", "surface-container-high": "#dee8ff", "surface-ground": "#F8FAFC", "surface-card": "#FFFFFF", "warning": "#D97706", "on-tertiary-fixed-variant": "#722b65", "on-primary-fixed-variant": "#7b0090", "surface-tint": "#982aab", "on-tertiary": "#ffffff", "on-primary-container": "#fab3ff", "surface-container": "#e7eeff", "inverse-surface": "#263143", "tertiary-container": "#843b76", "surface-variant": "#d8e3fb", "secondary-fixed-dim": "#ffaaf6", "primary-fixed-dim": "#f9acff", "error-container": "#ffdad6", "slate-muted": "#64748B", "primary-container": "#8e1ea2", "error": "#ba1a1a", "on-surface": "#111c2d", "inverse-primary": "#f9acff" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-xl": "2.5rem", "margin-mobile": "1rem", "space-sm": "0.5rem", "gutter-mobile": "1rem", "margin": "2rem", "gutter": "1.5rem", "space-md": "1rem", "space-xs": "0.25rem", "space-lg": "1.5rem", "margin-desktop": "3rem" }, "fontFamily": { "label-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "headline-lg-mobile": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "headline-xl-mobile": ["Plus Jakarta Sans"], "caption": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "headline-xl": ["Plus Jakarta Sans"] }, "fontSize": { "label-md": ["0.875rem", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600" }], "headline-lg": ["2.25rem", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }], "headline-lg-mobile": ["1.75rem", { "lineHeight": "1.25", "letterSpacing": "-0.015em", "fontWeight": "700" }], "label-sm": ["0.75rem", { "lineHeight": "1.3", "letterSpacing": "0.025em", "fontWeight": "600" }], "body-md": ["0.9375rem", { "lineHeight": "1.55", "letterSpacing": "0", "fontWeight": "400" }], "headline-xl-mobile": ["2.25rem", { "lineHeight": "1.2", "letterSpacing": "-0.025em", "fontWeight": "800" }], "caption": ["0.6875rem", { "lineHeight": "1.25", "letterSpacing": "0.03em", "fontWeight": "500" }], "body-sm": ["0.8125rem", { "lineHeight": "1.5", "letterSpacing": "0.005em", "fontWeight": "400" }], "body-lg": ["1.125rem", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }], "headline-sm": ["1.25rem", { "lineHeight": "1.35", "letterSpacing": "-0.005em", "fontWeight": "600" }], "headline-md": ["1.5rem", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }], "headline-xl": ["3.5rem", { "lineHeight": "1.15", "letterSpacing": "-0.03em", "fontWeight": "800" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-20 w-full px-margin-desktop flex items-center justify-between"><a class="flex items-center gap-space-sm text-decoration-none group" data-path="home" href="#"><div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary-container to-secondary flex items-center justify-center text-on-primary shadow-sm"><span class="material-symbols-outlined text-[22px]">auto_awesome</span></div><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight group-hover:text-primary transition-colors">ApplyNora</span><span class="font-caption text-caption text-outline uppercase tracking-wider">Executive Career AI</span></div></a><nav class="hidden xl:flex items-center gap-space-lg" data-active-classes="text-primary font-bold bg-surface-blush-subtle rounded-lg"><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-space-sm py-space-xs transition-colors" data-path="home" href="#">Home</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-space-sm py-space-xs transition-colors" data-path="features" href="#">Features</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-space-sm py-space-xs transition-colors" data-path="how-it-works" href="#">How It Works</a><a aria-current="page" class="px-space-sm py-space-xs transition-colors text-primary font-bold bg-surface-blush-subtle rounded-lg" data-path="pricing" href="#">Pricing</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-space-sm py-space-xs transition-colors" data-path="about" href="#">About</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-space-sm py-space-xs transition-colors" data-path="blog" href="#">Blog</a><a class="font-label-md text-label-md text-on-surface-variant hover:text-on-surface px-space-sm py-space-xs transition-colors" data-path="contact" href="#">Contact</a></nav><div class="flex items-center gap-space-md"><a class="font-label-md text-label-md text-on-surface-variant hover:text-primary px-space-sm py-space-xs transition-colors" data-path="sign-in" href="#">Sign In</a><a class="font-label-md text-label-md text-on-primary bg-gradient-to-r from-primary-container to-secondary hover:brightness-105 active:scale-95 px-space-lg py-space-sm rounded-lg shadow-[0_2px_8px_-2px_rgba(30,41,59,0.04),0_4px_16px_-4px_rgba(142,30,162,0.12)] transition-all flex items-center gap-space-xs" data-path="pricing" href="#"><span class="material-symbols-outlined text-[18px]">verified</span>Get Started Free</a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-20 bg-surface-ground min-h-screen"><div class="flex flex-col w-full">
+<!-- Hero / Introduction Banner -->
+<section class="relative w-full px-margin-mobile md:px-margin lg:px-margin-desktop py-space-xl overflow-hidden">
+<!-- Atmospheric Ambient Glow Orbs -->
+<div class="absolute top-10 left-1/4 w-96 h-96 rounded-full bg-secondary-container/20 blur-3xl pointer-events-none"></div>
+<div class="absolute -top-20 right-1/4 w-[32rem] h-[32rem] rounded-full bg-surface-blush/30 blur-3xl pointer-events-none"></div>
+<div class="relative max-w-5xl mx-auto text-center flex flex-col items-center">
+<!-- Overline Pill -->
+<div class="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-high shadow-sm mb-space-md">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider">Paystack Verified • Complete Transparency</span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-on-surface tracking-tight mb-space-md max-w-4xl">
+        Transparent, Value-Driven Plans.
+      </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+        No hidden fees, no automatic runaway charges. Upgrade, renew, or cancel with complete peace of mind through secured gateway authorization.
+      </p>
+<!-- Paystack Currency & Cadence Switcher -->
+<div class="mt-space-xl p-space-xs rounded-full bg-surface-card shadow-md flex items-center gap-space-xs">
+<button class="flex items-center gap-space-xs px-space-lg py-space-sm rounded-full font-label-md text-label-md transition-all duration-300 bg-gradient-to-r from-primary-container to-secondary text-on-primary shadow-sm cursor-pointer" id="monthlyBtn" onclick="switchBilling('monthly')">
+<span class="material-symbols-outlined text-[18px]">calendar_month</span>
+          Monthly Billing
+        </button>
+<button class="flex items-center gap-space-xs px-space-lg py-space-sm rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all duration-300 cursor-pointer" id="annualBtn" onclick="switchBilling('annual')">
+<span class="material-symbols-outlined text-[18px]">verified</span>
+          Annual Billing
+          <span class="px-space-xs py-0.5 rounded-full bg-surface-blush text-primary text-caption font-bold ml-1">Save 20%</span>
+</button>
+</div>
+<!-- Currency Switcher Pill -->
+<div class="mt-space-md flex items-center gap-space-sm text-slate-muted font-label-sm text-label-sm">
+<span>Payment Currency:</span>
+<button class="px-space-sm py-0.5 rounded-lg bg-surface-container-highest text-primary font-bold transition-all" id="currUSD" onclick="setCurrency('USD')">USD ($)</button>
+<button class="px-space-sm py-0.5 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all" id="currNGN" onclick="setCurrency('NGN')">NGN (₦ via Paystack)</button>
+</div>
+</div>
+</section>
+<!-- 3-Tier Pricing Cards Grid -->
+<section class="w-full px-margin-mobile md:px-margin lg:px-margin-desktop pb-space-xl">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-gutter items-stretch">
+<!-- 1. Free Tier (Explorer) -->
+<div class="flex flex-col justify-between rounded-xl bg-surface-card p-space-xl shadow-md transition-all duration-300 hover:shadow-xl">
+<div class="flex flex-col">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md text-label-md text-slate-muted uppercase tracking-wider">Explorer</span>
+<span class="px-space-sm py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Entry Level</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-space-xs">Free Tier</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-lg">
+            Essential foundation for students and professionals starting structured career positioning.
+          </p>
+<!-- Price Indicator -->
+<div class="mb-space-lg pb-space-md bg-surface-ground p-space-md rounded-lg">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-xl text-headline-xl text-on-surface price-val-free">$0</span>
+<span class="font-body-md text-body-md text-slate-muted">/ forever</span>
+</div>
+<p class="font-caption text-caption text-slate-muted mt-1">Zero credit card required at sign up</p>
+</div>
+<!-- Entitlements List -->
+<div class="flex flex-col gap-space-sm mb-space-xl">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-slate-muted">Includes:</span>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface"><strong>10 Fact-grounded</strong> AI tailored drafts/mo</span>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface">ATS plain-text CV builder &amp; PDF export</span>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface">Manual interview stage tracker &amp; notes</span>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface">1 Master CV in private secure vault</span>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface">Community Slack &amp; Docs access</span>
+</div>
+<div class="flex items-start gap-space-sm opacity-40">
+<span class="material-symbols-outlined text-slate-muted text-[20px] mt-0.5 shrink-0">block</span>
+<span class="font-body-sm text-body-sm text-slate-muted line-through">Scoped Gmail interview sync</span>
+</div>
+<div class="flex items-start gap-space-sm opacity-40">
+<span class="material-symbols-outlined text-slate-muted text-[20px] mt-0.5 shrink-0">block</span>
+<span class="font-body-sm text-body-sm text-slate-muted line-through">Telegram dispatch notifications</span>
+</div>
+</div>
+</div>
+<a class="w-full text-center py-space-sm px-space-md rounded-lg font-label-md text-label-md bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors" data-path="signup" href="#">
+          Get Started Free
+        </a>
+</div>
+<!-- 2. Professional Tier (Most Popular) -->
+<div class="relative flex flex-col justify-between rounded-xl bg-surface-card p-space-xl shadow-xl transition-all duration-300 hover:shadow-2xl -mt-0 lg:-mt-4 bg-gradient-to-b from-surface-card via-surface-card to-surface-blush-subtle/50">
+<!-- Floating Highlight Badge -->
+<div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-space-md py-1 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm shadow-md flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-surface-blush">stars</span>
+          Most Popular for Job Seekers
+        </div>
+<div class="flex flex-col">
+<div class="flex items-center justify-between mb-space-sm mt-1">
+<span class="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">Active Search</span>
+<span class="px-space-sm py-0.5 rounded-full bg-surface-blush text-primary font-label-sm text-label-sm">High Value</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-space-xs">Professional Tier</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-lg">
+            High-cadence applications with verified multi-model fallback, auto sync, and instant dispatches.
+          </p>
+<!-- Price Indicator -->
+<div class="mb-space-lg pb-space-md bg-surface-container-low p-space-md rounded-lg">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-xl text-headline-xl text-primary" id="proPrice">$29</span>
+<span class="font-body-md text-body-md text-slate-muted" id="proPeriod">/ month</span>
+</div>
+<p class="font-caption text-caption text-secondary font-semibold mt-1" id="proAltPaystack">
+              ₦35,000 NGN via Paystack recurring or manual renewal
+            </p>
+</div>
+<!-- Entitlements List -->
+<div class="flex flex-col gap-space-sm mb-space-xl">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">Everything in Explorer, plus:</span>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5 shrink-0">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface"><strong>60 Fact-grounded</strong> AI tailored drafts/mo</span>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5 shrink-0">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface">Multi-model fallback <em>(Gemini Pro + NVIDIA)</em></span>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5 shrink-0">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface">Unlimited ATS CV versions &amp; DOCX export</span>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5 shrink-0">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface"><strong>Scoped Gmail sync</strong> &amp; interview intelligence</span>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5 shrink-0">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface">24h &amp; 1h Telegram + Email reminders</span>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5 shrink-0">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface">Google Sheets two-way tracking sync</span>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary text-[20px] mt-0.5 shrink-0">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface">Priority queue email support (&lt; 4h SLA)</span>
+</div>
+</div>
+</div>
+<a class="w-full text-center py-space-sm px-space-md rounded-lg font-label-md text-label-md text-on-primary bg-gradient-to-r from-primary-container to-secondary shadow-md hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-space-xs" data-path="checkout-pro" href="#">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+          Start 14-Day Pro Trial
+        </a>
+</div>
+<!-- 3. Executive Tier (Career Accelerator) -->
+<div class="flex flex-col justify-between rounded-xl bg-surface-card p-space-xl shadow-md transition-all duration-300 hover:shadow-xl">
+<div class="flex flex-col">
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-md text-label-md text-slate-muted uppercase tracking-wider">Career Accelerator</span>
+<span class="px-space-sm py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">High Cadence</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-space-xs">Executive Tier</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-space-lg">
+            Complete executive suite with dry-run automations, multi-tenant roles, and strategic 1-on-1 human advisory.
+          </p>
+<!-- Price Indicator -->
+<div class="mb-space-lg pb-space-md bg-surface-ground p-space-md rounded-lg">
+<div class="flex items-baseline gap-space-xs">
+<span class="font-headline-xl text-headline-xl text-on-surface" id="execPrice">$69</span>
+<span class="font-body-md text-body-md text-slate-muted" id="execPeriod">/ month</span>
+</div>
+<p class="font-caption text-caption text-slate-muted mt-1" id="execAltPaystack">
+              ₦85,000 NGN via Paystack recurring or manual invoice
+            </p>
+</div>
+<!-- Entitlements List -->
+<div class="flex flex-col gap-space-sm mb-space-xl">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-slate-muted">Everything in Pro, plus:</span>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface"><strong>200 Fact-grounded</strong> AI tailored drafts/mo</span>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface"><strong>Dry-run automation</strong> pipeline with batch queueing</span>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface">Advanced skill-gap analysis &amp; salary benchmarking</span>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface">Dedicated account vault with unlimited CVs</span>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface">Multi-tenant role matching &amp; headhunter radar</span>
+</div>
+<div class="flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
+<span class="font-body-sm text-body-sm text-on-surface"><strong>1-on-1 career strategy onboarding</strong> session</span>
+</div>
+</div>
+</div>
+<a class="w-full text-center py-space-sm px-space-md rounded-lg font-label-md text-label-md bg-inverse-surface text-inverse-on-surface hover:bg-slate-muted transition-colors flex items-center justify-center gap-space-xs" data-path="checkout-exec" href="#">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+          Get Executive Access
+        </a>
+</div>
+</div>
+</section>
+<!-- Value & Security Guarantees: Paystack & Fair Billing Section -->
+<section class="w-full px-margin-mobile md:px-margin lg:px-margin-desktop py-space-lg">
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Card 1: Paystack Secured -->
+<div class="p-space-lg rounded-xl bg-surface-card shadow-sm flex flex-col gap-space-sm">
+<div class="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[28px]">lock</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Paystack Secured Gateway</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Bank-grade TLS 256-bit encryption. Seamlessly pay via credit card, bank transfer, or USSD with immediate receipt issuance and automated tokenization.
+        </p>
+<div class="flex items-center gap-space-xs text-caption font-bold text-success mt-auto">
+<span class="material-symbols-outlined text-[16px]">check</span>
+          PCI-DSS Level 1 Certified Integration
+        </div>
+</div>
+<!-- Card 2: Fair Billing / No Surprise Renewals -->
+<div class="p-space-lg rounded-xl bg-surface-card shadow-sm flex flex-col gap-space-sm">
+<div class="w-12 h-12 rounded-lg bg-surface-blush-subtle flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[28px]">sentiment_very_satisfied</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Zero Surprise Renewals</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Choose between manual monthly authorization or automatic billing with a 3-day advance email notification. Cancel anytime with a single click inside your dashboard.
+        </p>
+<div class="flex items-center gap-space-xs text-caption font-bold text-primary mt-auto">
+<span class="material-symbols-outlined text-[16px]">notifications_active</span>
+          Explicit 72h renewal warning notices
+        </div>
+</div>
+<!-- Card 3: Strict Privacy & Zero Reselling -->
+<div class="p-space-lg rounded-xl bg-surface-card shadow-sm flex flex-col gap-space-sm">
+<div class="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[28px]">shield_person</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Strict Privacy &amp; Zero Reselling</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+          Your CVs, career metrics, and interview communications are confidential. We never sell profile data to recruitment brokers or third-party ad networks.
+        </p>
+<div class="flex items-center gap-space-xs text-caption font-bold text-success mt-auto">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+          Encrypted RLS &amp; NDPA/GDPR Compliant
+        </div>
+</div>
+</div>
+</section>
+<!-- Interactive ROI & Usage Calculator Widget -->
+<section class="w-full px-margin-mobile md:px-margin lg:px-margin-desktop py-space-xl">
+<div class="max-w-7xl mx-auto rounded-xl bg-surface-card p-space-xl shadow-md">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center">
+<div class="lg:col-span-5 flex flex-col gap-space-sm">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider font-bold">Value Multiplier</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Calculate Your Weekly Time Saved</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Tailoring each CV manually takes on average 45 minutes. With ApplyNora fact-grounded drafts and automatic tracking, you reclaim hours every week.
+          </p>
+<div class="mt-space-md flex flex-col gap-space-sm">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-on-surface">Target Applications / Month:</span>
+<span class="font-headline-sm text-headline-sm text-primary" id="calcAppsValue">30</span>
+</div>
+<input class="w-full accent-primary h-2 bg-surface-container rounded-lg cursor-pointer" id="appRange" max="150" min="5" oninput="updateCalculator(this.value)" type="range" value="30"/>
+<div class="flex justify-between text-caption text-slate-muted">
+<span>5 apps</span>
+<span>75 apps</span>
+<span>150 apps</span>
+</div>
+</div>
+</div>
+<!-- Metric Output Cards -->
+<div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-space-md">
+<div class="p-space-md rounded-lg bg-surface-ground flex flex-col justify-between">
+<span class="font-label-sm text-label-sm text-slate-muted">Hours Reclaimed</span>
+<div class="my-space-sm">
+<span class="font-headline-lg text-headline-lg text-primary font-bold" id="hoursSaved">22.5</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">hrs/mo</span>
+</div>
+<span class="font-caption text-caption text-success font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> 85% faster submissions
+            </span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-ground flex flex-col justify-between">
+<span class="font-label-sm text-label-sm text-slate-muted">ATS Match Velocity</span>
+<div class="my-space-sm">
+<span class="font-headline-lg text-headline-lg text-on-surface font-bold" id="matchScore">94%</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">avg</span>
+</div>
+<span class="font-caption text-caption text-slate-muted flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">tune</span> Multi-model grounded
+            </span>
+</div>
+<div class="p-space-md rounded-lg bg-surface-ground flex flex-col justify-between">
+<span class="font-label-sm text-label-sm text-slate-muted">Suggested Tier</span>
+<div class="my-space-sm">
+<span class="font-headline-md text-headline-md text-secondary font-bold" id="suggestedTier">Professional</span>
+</div>
+<a class="font-caption text-caption text-primary hover:underline font-bold flex items-center gap-1" data-path="signup" href="#">
+              Choose plan <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Exhaustive Feature Comparison Matrix -->
+<section class="w-full px-margin-mobile md:px-margin lg:px-margin-desktop py-space-xl">
+<div class="max-w-7xl mx-auto">
+<div class="text-center mb-space-xl">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-space-xs">Exhaustive Entitlement Matrix</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl mx-auto">
+          Every capability itemized across security, AI engines, third-party sync, and support SLAs.
+        </p>
+</div>
+<div class="w-full overflow-x-auto rounded-xl bg-surface-card shadow-sm">
+<table class="w-full text-left border-collapse min-w-[700px]">
+<thead>
+<tr class="bg-surface-ground">
+<th class="py-space-md px-space-lg font-label-md text-label-md text-on-surface w-1/3">Capability &amp; Entitlements</th>
+<th class="py-space-md px-space-md font-label-md text-label-md text-slate-muted text-center w-1/5">Free (Explorer)</th>
+<th class="py-space-md px-space-md font-label-md text-label-md text-primary text-center w-1/5 bg-surface-blush-subtle">Professional</th>
+<th class="py-space-md px-space-md font-label-md text-label-md text-on-surface text-center w-1/5">Executive</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<!-- Category: AI Gateway & Modeling -->
+<tr class="bg-surface-container-low">
+<td class="py-space-xs px-space-lg font-label-sm text-label-sm uppercase tracking-wider text-slate-muted font-bold" colspan="4">
+                AI Gateway &amp; Tailoring
+              </td>
+</tr>
+<tr class="hover:bg-surface-blush-subtle/30 transition-colors">
+<td class="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Monthly Tailored CV &amp; Cover Drafts</td>
+<td class="py-space-md px-space-md text-center font-body-sm text-body-sm text-on-surface-variant">10 / month</td>
+<td class="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-primary bg-surface-blush-subtle/50">60 / month</td>
+<td class="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-on-surface">200 / month</td>
+</tr>
+<tr class="hover:bg-surface-blush-subtle/30 transition-colors">
+<td class="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Multi-Model Engine Fallback (Gemini + NVIDIA)</td>
+<td class="py-space-md px-space-md text-center"><span class="material-symbols-outlined text-slate-muted text-[18px]">remove</span></td>
+<td class="py-space-md px-space-md text-center bg-surface-blush-subtle/50"><span class="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
+<td class="py-space-md px-space-md text-center"><span class="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
+</tr>
+<tr class="hover:bg-surface-blush-subtle/30 transition-colors">
+<td class="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Fact-grounding Truth Guard (No Hallucination)</td>
+<td class="py-space-md px-space-md text-center"><span class="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
+<td class="py-space-md px-space-md text-center bg-surface-blush-subtle/50"><span class="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
+<td class="py-space-md px-space-md text-center"><span class="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
+</tr>
+<tr class="hover:bg-surface-blush-subtle/30 transition-colors">
+<td class="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Automated Dry-Run &amp; Queue Pipeline</td>
+<td class="py-space-md px-space-md text-center"><span class="material-symbols-outlined text-slate-muted text-[18px]">remove</span></td>
+<td class="py-space-md px-space-md text-center bg-surface-blush-subtle/50"><span class="material-symbols-outlined text-slate-muted text-[18px]">remove</span></td>
+<td class="py-space-md px-space-md text-center"><span class="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
+</tr>
+<!-- Category: Document Vault -->
+<tr class="bg-surface-container-low">
+<td class="py-space-xs px-space-lg font-label-sm text-label-sm uppercase tracking-wider text-slate-muted font-bold" colspan="4">
+                Document Vault &amp; Exporting
+              </td>
+</tr>
+<tr class="hover:bg-surface-blush-subtle/30 transition-colors">
+<td class="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Master CV Private Storage</td>
+<td class="py-space-md px-space-md text-center font-body-sm text-body-sm text-on-surface-variant">1 Profile</td>
+<td class="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-primary bg-surface-blush-subtle/50">Unlimited</td>
+<td class="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-on-surface">Unlimited Dedicated</td>
+</tr>
+<tr class="hover:bg-surface-blush-subtle/30 transition-colors">
+<td class="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Export Formats</td>
+<td class="py-space-md px-space-md text-center font-body-sm text-body-sm text-on-surface-variant">PDF only</td>
+<td class="py-space-md px-space-md text-center font-body-sm text-body-sm text-primary font-bold bg-surface-blush-subtle/50">PDF, DOCX, TXT</td>
+<td class="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-on-surface">PDF, DOCX, LaTeX, TXT</td>
+</tr>
+<!-- Category: Integration Scopes -->
+<tr class="bg-surface-container-low">
+<td class="py-space-xs px-space-lg font-label-sm text-label-sm uppercase tracking-wider text-slate-muted font-bold" colspan="4">
+                Automations &amp; Integrations
+              </td>
+</tr>
+<tr class="hover:bg-surface-blush-subtle/30 transition-colors">
+<td class="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Gmail Scoped Interview Ingestion</td>
+<td class="py-space-md px-space-md text-center"><span class="material-symbols-outlined text-slate-muted text-[18px]">remove</span></td>
+<td class="py-space-md px-space-md text-center bg-surface-blush-subtle/50"><span class="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
+<td class="py-space-md px-space-md text-center"><span class="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
+</tr>
+<tr class="hover:bg-surface-blush-subtle/30 transition-colors">
+<td class="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Telegram Dispatch (24h &amp; 1h Alerts)</td>
+<td class="py-space-md px-space-md text-center"><span class="material-symbols-outlined text-slate-muted text-[18px]">remove</span></td>
+<td class="py-space-md px-space-md text-center bg-surface-blush-subtle/50"><span class="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
+<td class="py-space-md px-space-md text-center"><span class="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
+</tr>
+<tr class="hover:bg-surface-blush-subtle/30 transition-colors">
+<td class="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Google Sheets 2-Way Sync</td>
+<td class="py-space-md px-space-md text-center"><span class="material-symbols-outlined text-slate-muted text-[18px]">remove</span></td>
+<td class="py-space-md px-space-md text-center bg-surface-blush-subtle/50"><span class="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
+<td class="py-space-md px-space-md text-center"><span class="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
+</tr>
+<!-- Category: Security & Support -->
+<tr class="bg-surface-container-low">
+<td class="py-space-xs px-space-lg font-label-sm text-label-sm uppercase tracking-wider text-slate-muted font-bold" colspan="4">
+                Security, Privacy &amp; Support
+              </td>
+</tr>
+<tr class="hover:bg-surface-blush-subtle/30 transition-colors">
+<td class="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Row-Level Security (RLS) &amp; MFA</td>
+<td class="py-space-md px-space-md text-center"><span class="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
+<td class="py-space-md px-space-md text-center bg-surface-blush-subtle/50"><span class="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
+<td class="py-space-md px-space-md text-center"><span class="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
+</tr>
+<tr class="hover:bg-surface-blush-subtle/30 transition-colors">
+<td class="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Support SLA</td>
+<td class="py-space-md px-space-md text-center font-body-sm text-body-sm text-slate-muted">Community &amp; Docs</td>
+<td class="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-primary bg-surface-blush-subtle/50">Priority Email (&lt; 4h)</td>
+<td class="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-on-surface">Dedicated Concierge &amp; Strategy Call</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+<!-- Frequently Asked Questions Accordion -->
+<section class="w-full px-margin-mobile md:px-margin lg:px-margin-desktop py-space-xl">
+<div class="max-w-4xl mx-auto flex flex-col items-center">
+<div class="text-center mb-space-lg">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-wider font-bold">Got Questions?</span>
+<h2 class="font-headline-lg text-headline-lg text-on-surface mt-1">Frequently Asked Questions</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">
+          Clear answers about billing authorizations, Paystack payment methods, and account upgrades.
+        </p>
+</div>
+<div class="w-full flex flex-col gap-space-sm">
+<!-- FAQ 1 -->
+<div class="p-space-lg rounded-xl bg-surface-card shadow-sm cursor-pointer" onclick="toggleFaq('faq-1')">
+<div class="flex items-center justify-between">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">How does Paystack billing work for Nigerian and international cards?</h4>
+<span class="material-symbols-outlined text-primary transition-transform duration-200" id="icon-faq-1">expand_more</span>
+</div>
+<div class="hidden mt-space-sm pt-space-sm font-body-sm text-body-sm text-on-surface-variant leading-relaxed" id="faq-1">
+            We use Paystack to process payments in Nigerian Naira (₦) as well as USD. For Nigerian accounts, you can pay via local Mastercard, Visa, Verve, direct bank transfer, or USSD code. International applicants outside Nigeria can pay via standard Visa and Mastercard in USD. All conversions follow live interbank settlement rates with no surcharges.
+          </div>
+</div>
+<!-- FAQ 2 -->
+<div class="p-space-lg rounded-xl bg-surface-card shadow-sm cursor-pointer" onclick="toggleFaq('faq-2')">
+<div class="flex items-center justify-between">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Will I be charged unexpectedly after my trial or subscription expires?</h4>
+<span class="material-symbols-outlined text-primary transition-transform duration-200" id="icon-faq-2">expand_more</span>
+</div>
+<div class="hidden mt-space-sm pt-space-sm font-body-sm text-body-sm text-on-surface-variant leading-relaxed" id="faq-2">
+            Never. ApplyNora implements a strict Zero Surprise Renewal policy. You can choose "Manual Renewal" at checkout to authorize each monthly billing cycle explicitly. For auto-renewing subscriptions, we dispatch an advance email notification 72 hours before payment processing, and cancellations are effective instantly.
+          </div>
+</div>
+<!-- FAQ 3 -->
+<div class="p-space-lg rounded-xl bg-surface-card shadow-sm cursor-pointer" onclick="toggleFaq('faq-3')">
+<div class="flex items-center justify-between">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">What happens if I exhaust my fact-grounded drafts quota?</h4>
+<span class="material-symbols-outlined text-primary transition-transform duration-200" id="icon-faq-3">expand_more</span>
+</div>
+<div class="hidden mt-space-sm pt-space-sm font-body-sm text-body-sm text-on-surface-variant leading-relaxed" id="faq-3">
+            If you exceed your tier's monthly AI draft allowance, your existing documents, ATS templates, and tracking sync remain 100% operational. You can either purchase a supplementary top-up draft pack through Paystack or instantly upgrade to the next tier for prorated access.
+          </div>
+</div>
+<!-- FAQ 4 -->
+<div class="p-space-lg rounded-xl bg-surface-card shadow-sm cursor-pointer" onclick="toggleFaq('faq-4')">
+<div class="flex items-center justify-between">
+<h4 class="font-headline-sm text-headline-sm text-on-surface">Is my Gmail and CV data shared or used to train third-party AI models?</h4>
+<span class="material-symbols-outlined text-primary transition-transform duration-200" id="icon-faq-4">expand_more</span>
+</div>
+<div class="hidden mt-space-sm pt-space-sm font-body-sm text-body-sm text-on-surface-variant leading-relaxed" id="faq-4">
+            Absolutely not. We use restricted Google OAuth scopes solely to detect interview schedules and company responses. Your CV credentials and emails are isolated via Postgres Row-Level Security (RLS) and are never used to train public models or shared with outside recruiters.
+          </div>
+</div>
+</div>
+</div>
+</section>
+<!-- Bottom CTA Banner -->
+<section class="w-full px-margin-mobile md:px-margin lg:px-margin-desktop py-space-xl">
+<div class="max-w-7xl mx-auto rounded-2xl bg-gradient-to-r from-primary-container via-secondary to-tertiary p-space-xl text-on-primary shadow-xl relative overflow-hidden">
+<!-- Decorative Backdrop Geometry -->
+<div class="absolute -right-10 -bottom-10 w-80 h-80 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-space-lg">
+<div class="flex flex-col gap-space-xs max-w-xl">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-surface-blush">Accelerate Your Search</span>
+<h2 class="font-headline-lg text-headline-lg font-extrabold text-on-primary">
+            Ready for a structured, interview-generating search?
+          </h2>
+<p class="font-body-md text-body-md text-white/90">
+            Join thousands of professionals landing higher-compensation roles with AI-guided ATS precision.
+          </p>
+</div>
+<div class="flex flex-col sm:flex-row items-center gap-space-sm shrink-0">
+<a class="px-space-lg py-space-sm rounded-lg bg-surface-card text-primary font-label-md text-label-md hover:bg-surface-blush-subtle shadow-md transition-all" data-path="signup" href="#">
+            Get Started Free
+          </a>
+<a class="px-space-lg py-space-sm rounded-lg bg-white/20 backdrop-blur-md text-on-primary font-label-md text-label-md hover:bg-white/30 transition-all" data-path="checkout-pro" href="#">
+            Start 14-Day Pro Trial
+          </a>
+</div>
+</div>
+</div>
+</section>
+<!-- Client-side Interactive Logic for Pricing, Currency & FAQ -->
+<script>
+    let billingCycle = 'monthly';
+    let currentCurrency = 'USD';
+
+    const pricingData = {
+      monthly: {
+        USD: { pro: '$29', exec: '$69', period: '/ month' },
+        NGN: { pro: '₦35,000', exec: '₦85,000', period: '/ month' }
+      },
+      annual: {
+        USD: { pro: '$23', exec: '$55', period: '/ month (billed annually)' },
+        NGN: { pro: '₦28,000', exec: '₦68,000', period: '/ month (billed annually)' }
+      }
+    };
+
+    function updatePriceDisplay() {
+      const data = pricingData[billingCycle][currentCurrency];
+
+      const proPrice = document.getElementById('proPrice');
+      const proPeriod = document.getElementById('proPeriod');
+      const execPrice = document.getElementById('execPrice');
+      const execPeriod = document.getElementById('execPeriod');
+
+      if (proPrice) proPrice.textContent = data.pro;
+      if (proPeriod) proPeriod.textContent = data.period;
+      if (execPrice) execPrice.textContent = data.exec;
+      if (execPeriod) execPeriod.textContent = data.period;
+
+      const altPro = document.getElementById('proAltPaystack');
+      const altExec = document.getElementById('execAltPaystack');
+
+      if (currentCurrency === 'USD') {
+        if (altPro) altPro.textContent = billingCycle === 'annual' ? '₦336,000 NGN billed annually via Paystack' : '₦35,000 NGN via Paystack recurring or manual renewal';
+        if (altExec) altExec.textContent = billingCycle === 'annual' ? '₦816,000 NGN billed annually via Paystack' : '₦85,000 NGN via Paystack recurring or manual invoice';
+      } else {
+        if (altPro) altPro.textContent = billingCycle === 'annual' ? 'Equivalent to $276 USD / year' : 'Equivalent to $29 USD / month';
+        if (altExec) altExec.textContent = billingCycle === 'annual' ? 'Equivalent to $660 USD / year' : 'Equivalent to $69 USD / month';
+      }
+    }
+
+    function switchBilling(cycle) {
+      billingCycle = cycle;
+      const mBtn = document.getElementById('monthlyBtn');
+      const aBtn = document.getElementById('annualBtn');
+
+      if (cycle === 'monthly') {
+        mBtn.className = "flex items-center gap-space-xs px-space-lg py-space-sm rounded-full font-label-md text-label-md transition-all duration-300 bg-gradient-to-r from-primary-container to-secondary text-on-primary shadow-sm cursor-pointer";
+        aBtn.className = "flex items-center gap-space-xs px-space-lg py-space-sm rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all duration-300 cursor-pointer";
+      } else {
+        aBtn.className = "flex items-center gap-space-xs px-space-lg py-space-sm rounded-full font-label-md text-label-md transition-all duration-300 bg-gradient-to-r from-primary-container to-secondary text-on-primary shadow-sm cursor-pointer";
+        mBtn.className = "flex items-center gap-space-xs px-space-lg py-space-sm rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all duration-300 cursor-pointer";
+      }
+      updatePriceDisplay();
+    }
+
+    function setCurrency(curr) {
+      currentCurrency = curr;
+      const cUSD = document.getElementById('currUSD');
+      const cNGN = document.getElementById('currNGN');
+
+      if (curr === 'USD') {
+        cUSD.className = "px-space-sm py-0.5 rounded-lg bg-surface-container-highest text-primary font-bold transition-all";
+        cNGN.className = "px-space-sm py-0.5 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all";
+      } else {
+        cNGN.className = "px-space-sm py-0.5 rounded-lg bg-surface-container-highest text-primary font-bold transition-all";
+        cUSD.className = "px-space-sm py-0.5 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all";
+      }
+      updatePriceDisplay();
+    }
+
+    function updateCalculator(val) {
+      document.getElementById('calcAppsValue').textContent = val;
+      const hours = (val * 0.75).toFixed(1);
+      document.getElementById('hoursSaved').textContent = hours;
+
+      const score = Math.min(99, 86 + Math.round(val * 0.1));
+      document.getElementById('matchScore').textContent = score + '%';
+
+      const tierEl = document.getElementById('suggestedTier');
+      if (val <= 10) {
+        tierEl.textContent = 'Explorer (Free)';
+        tierEl.className = 'font-headline-md text-headline-md text-slate-muted font-bold';
+      } else if (val <= 60) {
+        tierEl.textContent = 'Professional';
+        tierEl.className = 'font-headline-md text-headline-md text-primary font-bold';
+      } else {
+        tierEl.textContent = 'Executive';
+        tierEl.className = 'font-headline-md text-headline-md text-secondary font-bold';
+      }
+    }
+
+    function toggleFaq(id) {
+      const content = document.getElementById(id);
+      const icon = document.getElementById('icon-' + id);
+      if (content.classList.contains('hidden')) {
+        content.classList.remove('hidden');
+        icon.style.transform = 'rotate(180deg)';
+      } else {
+        content.classList.add('hidden');
+        icon.style.transform = 'rotate(0deg)';
+      }
+    }
+  </script>
+</div></main><footer class="w-full bg-surface-container-low shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="w-full px-margin-desktop py-space-xl"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-space-xl pb-space-xl"><div class="lg:col-span-2 flex flex-col gap-space-md"><div class="flex items-center gap-space-sm"><div class="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-container to-secondary flex items-center justify-center text-on-primary"><span class="material-symbols-outlined text-[20px]">auto_awesome</span></div><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight">ApplyNora</span></div><p class="font-body-sm text-body-sm text-on-surface-variant max-w-sm">Intelligent, authoritative career acceleration for high-caliber professionals and executives navigating modern transitions with AI precision and human discretion.</p><div class="flex flex-wrap gap-space-xs pt-space-xs"><div class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded-full bg-surface-container text-success font-caption text-caption"><span class="w-2 h-2 rounded-full bg-success"></span>NDPA / GDPR Compliant</div><div class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded-full bg-surface-blush-subtle text-primary font-caption text-caption"><span class="material-symbols-outlined text-[14px]">verified_user</span>Human-in-the-Loop</div><div class="inline-flex items-center gap-space-xs px-space-sm py-space-xs rounded-full bg-surface-container text-slate-muted font-caption text-caption"><span class="material-symbols-outlined text-[14px]">shield</span>Zero Spam Guarantee</div></div></div><div class="flex flex-col gap-space-sm"><span class="font-label-md text-label-md text-on-surface uppercase tracking-wider">Platform</span><div class="flex flex-col gap-space-xs"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="features" href="#">Smart ATS Optimization</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="features" href="#">Executive Brief Generator</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="features" href="#">Opportunity Radar</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="features" href="#">Confidential Application Vault</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="pricing" href="#">Executive Tier Plans</a></div></div><div class="flex flex-col gap-space-sm"><span class="font-label-md text-label-md text-on-surface uppercase tracking-wider">Company</span><div class="flex flex-col gap-space-xs"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="about" href="#">About Us</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="blog" href="#">Insights &amp; Research</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="how-it-works" href="#">Methodology</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="contact" href="#">Executive Concierge</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="contact" href="#">Support Desk</a></div></div><div class="flex flex-col gap-space-sm"><span class="font-label-md text-label-md text-on-surface uppercase tracking-wider">Governance</span><div class="flex flex-col gap-space-xs"><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="privacy-policy" href="#">Privacy Policy</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="terms-of-service" href="#">Terms of Service</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="security" href="#">Security Protocols</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="compliance" href="#">NDPA / GDPR Policy</a><a class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-colors" data-path="trust-center" href="#">Zero-Spam Pledge</a></div></div></div><div class="pt-space-lg flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex items-center gap-space-md"><a aria-label="Global Network" class="w-9 h-9 rounded-lg bg-surface flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-blush-subtle transition-all" href="#"><span class="material-symbols-outlined text-[20px]">globe</span></a><a aria-label="Terminal Insights" class="w-9 h-9 rounded-lg bg-surface flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-blush-subtle transition-all" href="#"><span class="material-symbols-outlined text-[20px]">terminal</span></a><a aria-label="Discussions" class="w-9 h-9 rounded-lg bg-surface flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-blush-subtle transition-all" href="#"><span class="material-symbols-outlined text-[20px]">forum</span></a><a aria-label="Corporate RSS" class="w-9 h-9 rounded-lg bg-surface flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-surface-blush-subtle transition-all" href="#"><span class="material-symbols-outlined text-[20px]">rss_feed</span></a></div><p class="font-body-sm text-body-sm text-outline">© 2025 ApplyNora Inc. All rights reserved. Precision career engineering.</p></div></div></footer></body></html>
