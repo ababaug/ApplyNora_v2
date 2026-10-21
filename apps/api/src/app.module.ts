@@ -6,12 +6,9 @@ import { PrismaModule } from './prisma/prisma.module.js';
 import { ProfileModule } from './profile/profile.module.js';
 import { DashboardModule } from './dashboard/dashboard.module.js';
 import { AccountModule } from './account/account.module.js';
-import { DocumentModule } from './document/document.module.js';
-import { CvModule } from './cv/cv.module.js';
-import { TemplateModule } from './template/template.module.js';
 
 @Module({
-  imports: [PrismaModule, AuthModule, ProfileModule, DashboardModule, AccountModule, DocumentModule, CvModule, TemplateModule],
+  imports: [PrismaModule, AuthModule, ProfileModule, DashboardModule, AccountModule],
   controllers: [AppController],
   providers: [AppService],
 })

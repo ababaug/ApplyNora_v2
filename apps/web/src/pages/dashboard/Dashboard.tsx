@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { User, Bell, Shield, Settings as SettingsIcon, LogOut, FileText, Briefcase } from 'lucide-react';
+import { User, Bell, Shield, Settings as SettingsIcon, LogOut } from 'lucide-react';
 import { api } from '../../api';
 
 export const Dashboard = () => {
@@ -35,12 +35,6 @@ export const Dashboard = () => {
         <nav className="flex-1 px-4 space-y-2">
           <Link to="/dashboard" className="flex items-center px-4 py-2 text-blue-600 bg-blue-50 rounded-md">
             Dashboard
-          </Link>
-          <Link to="/dashboard/documents" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-md">
-            <FileText className="w-5 h-5 mr-3" /> Document Vault
-          </Link>
-          <Link to="/dashboard/cv-builder" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-md">
-            <Briefcase className="w-5 h-5 mr-3" /> CV Builder
           </Link>
           <Link to="/dashboard/profile" className="flex items-center px-4 py-2 text-gray-700 hover:bg-gray-50 rounded-md">
             <User className="w-5 h-5 mr-3" /> Profile

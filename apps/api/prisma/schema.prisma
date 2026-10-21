@@ -21,8 +21,6 @@ model User {
   jobPreference           JobPreference?
   notificationPreference  NotificationPreference?
   securityEvents          SecurityEvent[]
-  documents               Document[]
-  cvs                     CV[]
 }
 
 model UserSession {
@@ -82,61 +80,4 @@ model SecurityEvent {
   timestamp DateTime @default(now())
   metadata  Json?
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model Document {
-  id               String   @id @default(uuid())
-  userId           String
-  name             String
-  originalFilename String
-  mimeType         String
-  size             Int
-  storageKey       String   @unique
-  status           String   @default("UPLOADED")
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-  versions         DocumentVersion[]
-  processingJobs   DocumentProcessingJob[]
-  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model DocumentVersion {
-  id            String   @id @default(uuid())
-  documentId    String
-  versionNumber Int
-  storageKey    String   @unique
-  createdAt     DateTime @default(now())
-  document      Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
-}
-
-model CV {
-  id             String   @id @default(uuid())
-  userId         String
-  title          String
-  templateId     String   @default("professional")
-  structuredData Json
-  currentVersion Int      @default(1)
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
-  versions       CVVersion[]
-  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-}
-
-model CVVersion {
-  id             String   @id @default(uuid())
-  cvId           String
-  versionNumber  Int
-  structuredData Json
-  createdAt      DateTime @default(now())
-  cv             CV       @relation(fields: [cvId], references: [id], onDelete: Cascade)
-}
-
-model DocumentProcessingJob {
-  id          String   @id @default(uuid())
-  documentId  String
-  status      String   @default("PENDING")
-  errorCode   String?
-  startedAt   DateTime?
-  completedAt DateTime?
-  document    Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
 }

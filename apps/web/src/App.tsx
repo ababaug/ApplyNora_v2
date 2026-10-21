@@ -14,16 +14,6 @@ import { ProfileEdit } from './pages/dashboard/ProfileEdit';
 import { Settings } from './pages/dashboard/Settings';
 import { Security } from './pages/dashboard/Security';
 import { Notifications } from './pages/dashboard/Notifications';
-import { DocumentVault } from './pages/dashboard/documents/DocumentVault';
-import { UploadCV } from './pages/dashboard/documents/UploadCV';
-import { DocumentDetails } from './pages/dashboard/documents/DocumentDetails';
-import { DocumentPreview } from './pages/dashboard/documents/DocumentPreview';
-import { CVBuilderOverview } from './pages/dashboard/cv-builder/CVBuilderOverview';
-import { CVEditor } from './pages/dashboard/cv-builder/CVEditor';
-import { CVExport } from './pages/dashboard/cv-builder/CVExport';
-import { CVTemplates } from './pages/dashboard/cv-builder/CVTemplates';
-import { CVPreview } from './pages/dashboard/cv-builder/CVPreview';
-import { CVTailor } from './pages/dashboard/cv-builder/CVTailor';
 
 function App() {
   return (
@@ -51,20 +41,6 @@ function App() {
         <Route path="/dashboard/settings" element={<Settings />} />
         <Route path="/dashboard/security" element={<Security />} />
         <Route path="/dashboard/notifications" element={<Notifications />} />
-
-        {/* Documents */}
-        <Route path="/dashboard/documents" element={<DocumentVault />} />
-        <Route path="/dashboard/documents/upload" element={<UploadCV />} />
-        <Route path="/dashboard/documents/:id" element={<DocumentDetails />} />
-        <Route path="/dashboard/documents/:id/preview" element={<DocumentPreview />} />
-
-        {/* CV Builder */}
-        <Route path="/dashboard/cv-builder" element={<CVBuilderOverview />} />
-        <Route path="/dashboard/cv-builder/:id/edit" element={<CVEditor />} />
-        <Route path="/dashboard/cv-builder/:id/export" element={<CVExport />} />
-        <Route path="/dashboard/cv-builder/:id/templates" element={<CVTemplates />} />
-        <Route path="/dashboard/cv-builder/:id/preview" element={<CVPreview />} />
-        <Route path="/dashboard/cv-builder/:id/tailor" element={<CVTailor />} />
       </Routes>
     </BrowserRouter>
   );
