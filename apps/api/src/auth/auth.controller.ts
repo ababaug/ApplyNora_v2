@@ -56,7 +56,7 @@ export class AuthController {
   }
 
   @Post('resend-verification')
-  async resendVerification(@Req() req: Request) {
+  async resendVerification(@Req() _req: Request) {
     // Requires authenticated user or email in body
     return { message: 'Verification email sent' };
   }
@@ -74,24 +74,24 @@ export class AuthController {
   }
 
   @Post('mfa/enroll')
-  async mfaEnroll(@Req() req: Request) {
+  async mfaEnroll(@Req() _req: Request) {
     return { qrCode: 'mock-qr-code' };
   }
 
   @Post('mfa/confirm')
   async mfaConfirm(@Body() body: any) {
-    const parsed = MfaConfirmDtoSchema.parse(body);
+    const _parsed = MfaConfirmDtoSchema.parse(body);
     return { message: 'MFA confirmed' };
   }
 
   @Post('mfa/challenge')
   async mfaChallenge(@Body() body: any) {
-    const parsed = MfaChallengeDtoSchema.parse(body);
+    const _parsed = MfaChallengeDtoSchema.parse(body);
     return { message: 'MFA Challenge successful' };
   }
 
   @Post('mfa/disable')
-  async mfaDisable(@Req() req: Request) {
+  async mfaDisable(@Req() _req: Request) {
     return { message: 'MFA disabled' };
   }
 }
