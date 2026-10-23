@@ -71,18 +71,18 @@ export class AuthService {
     return { message: 'Logged out' };
   }
 
-  async verifyEmail(token: string) {
+  async verifyEmail(_token: string) {
     // In a real app we would lookup the token
     return { message: 'Email verified' };
   }
 
-  async forgotPassword(email: string) {
+  async forgotPassword(_email: string) {
     // Generates a token and sends email
     // Returns generic response
     return { message: 'If the email exists, a password reset link has been sent.' };
   }
 
-  async resetPassword(token: string, newPassword: string) {
+  async resetPassword(_token: string, _newPassword: string) {
     // Lookup token, verify expiration, update passwordHash
     return { message: 'Password has been reset successfully' };
   }

@@ -14,7 +14,7 @@ export const Dashboard = () => {
       try {
         const res = await api.get('/dashboard/overview');
         setData(res.data);
-      } catch (err) {
+      } catch {
         navigate('/login');
       } finally {
         setLoading(false);
