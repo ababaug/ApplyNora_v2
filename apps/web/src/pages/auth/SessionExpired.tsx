@@ -1,1 +1,0 @@
-export const SessionExpired = () => <div className="p-8 text-center">Session Expired Page</div>;
