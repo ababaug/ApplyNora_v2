@@ -4,12 +4,15 @@ import path from 'node:path';
 import process from 'node:process';
 import { JSDOM } from 'jsdom';
 
-const ROOT = process.cwd();
-const DESIGN_ROOT = path.resolve(ROOT, 'apps/web/design-assets/stitch_applynora_design_system');
-const OUTPUT_ROOT = path.resolve(ROOT, 'apps/web/src/pages');
-const BACKUP_ROOT = path.resolve(ROOT, 'apps/web/.stitch-backups');
+const root = process.cwd();
+const designRoot = path.join(root, 'apps/web/design-assets/stitch_applynora_design_system');
+const pagesRoot = path.join(root, 'apps/web/src/pages');
+const publicRoot = path.join(root, 'apps/web/public');
+const backupRoot = path.join(root, 'apps/web/.stitch-backups', new Date().toISOString().replace(/[:.]/g, '-'));
+const dryRun = process.argv.includes('--dry-run');
+const overwrite = process.argv.includes('--overwrite');
 
-const PAGES = [
+const pages = [
   ['applynora_home', 'HomePage', '/'],
   ['applynora_features', 'FeaturesPage', '/features'],
   ['applynora_how_it_works', 'HowItWorksPage', '/how-it-works'],
@@ -19,12 +22,32 @@ const PAGES = [
   ['applynora_blog', 'BlogPage', '/blog'],
 ];
 
-const args = new Set(process.argv.slice(2));
-const dryRun = args.has('--dry-run');
-const overwrite = args.has('--overwrite');
-const noBackup = args.has('--no-backup');
+const routes = new Map([
+  ['/', '/'],
+  ['/index.html', '/'],
+  ['/home', '/'],
+  ...pages.flatMap(([slug, , route]) => [
+    [`/${slug}`, route],
+    [`/${slug}/code.html`, route],
+    [route, route],
+  ]),
+]);
 
-const HTML_TO_REACT = new Map(Object.entries({
+const voidTags = new Set([
+  'area', 'base', 'br', 'col', 'embed', 'hr',
+  'img', 'input', 'link', 'meta', 'param',
+  'source', 'track', 'wbr',
+]);
+
+const boolAttrs = new Set([
+  'disabled', 'checked', 'selected', 'multiple',
+  'required', 'readOnly', 'autoFocus', 'hidden',
+  'open', 'controls', 'loop', 'muted',
+  'playsInline', 'noValidate', 'formNoValidate',
+  'allowFullScreen', 'reversed', 'itemScope', 'capture',
+]);
+
+const attrMap = {
   class: 'className',
   for: 'htmlFor',
   tabindex: 'tabIndex',
@@ -42,6 +65,8 @@ const HTML_TO_REACT = new Map(Object.entries({
   spellcheck: 'spellCheck',
   viewbox: 'viewBox',
   preserveaspectratio: 'preserveAspectRatio',
+  charset: 'charSet',
+  acceptcharset: 'acceptCharset',
   'stroke-width': 'strokeWidth',
   'stroke-linecap': 'strokeLinecap',
   'stroke-linejoin': 'strokeLinejoin',
@@ -55,253 +80,254 @@ const HTML_TO_REACT = new Map(Object.entries({
   'stop-color': 'stopColor',
   'stop-opacity': 'stopOpacity',
   'color-interpolation-filters': 'colorInterpolationFilters',
-}));
+  'xlink:href': 'xlinkHref',
+  'xml:space': 'xmlSpace',
+  'xmlns:xlink': 'xmlnsXlink',
+};
 
-const VOID = new Set([
-  'area', 'base', 'br', 'col', 'embed', 'hr',
-  'img', 'input', 'link', 'meta', 'param',
-  'source', 'track', 'wbr',
-]);
-
-const BOOLEAN = new Set([
-  'disabled', 'checked', 'selected', 'multiple',
-  'required', 'readOnly', 'autoFocus', 'hidden',
-  'open', 'controls', 'loop', 'muted',
-  'playsInline', 'noValidate', 'formNoValidate',
-  'allowFullScreen', 'reversed', 'download',
-]);
-
-const UNIT_LESS = new Set([
+const unitless = new Set([
   'opacity', 'zIndex', 'fontWeight', 'lineHeight',
   'flex', 'flexGrow', 'flexShrink', 'order',
   'zoom', 'gridRow', 'gridColumn', 'scale',
   'strokeWidth', 'fillOpacity', 'strokeOpacity',
 ]);
 
-const routeAliases = new Map([
-  ['/', '/'],
-  ['/index.html', '/'],
-  ['/home', '/'],
-  ['/features', '/features'],
-  ['/how-it-works', '/how-it-works'],
-  ['/pricing', '/pricing'],
-  ['/about', '/about'],
-  ['/contact', '/contact'],
-  ['/blog', '/blog'],
-  ...PAGES.map(([slug, , route]) => [`/${slug}`, route]),
-  ...PAGES.map(([slug, , route]) => [`/${slug}/code.html`, route]),
-]);
+const camel = key =>
+  key.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
 
-function escapeJSXText(text) {
-  return text
-    .replace(/&/g, '&amp;')
-    .replace(/\{/g, '&#123;')
-    .replace(/\}/g, '&#125;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
-}
+const safeText = s =>
+  s.replace(/&/g, '&amp;')
+   .replace(/\{/g, '&#123;')
+   .replace(/\}/g, '&#125;')
+   .replace(/</g, '&lt;')
+   .replace(/>/g, '&gt;');
 
-function toCamel(prop) {
-  return prop.replace(
-    /-([a-z])/g,
-    (_, letter) => letter.toUpperCase()
-  );
-}
+const isRemote = s =>
+  /^(?:https?:|data:|blob:|\/\/|mailto:|tel:|#)/i.test(s);
 
-function parseStyle(style) {
-  const result = {};
-  const doc = new JSDOM('<div></div>').window.document;
-  const el = doc.querySelector('div');
+const existsFile = p =>
+  fs.existsSync(p) && fs.statSync(p).isFile();
 
-  el.setAttribute('style', style);
+function save(file, content) {
+  if (existsFile(file)) {
+    if (fs.readFileSync(file, 'utf8') === content) return;
 
-  for (let i = 0; i < el.style.length; i++) {
-    const property = el.style[i];
-    const raw = el.style.getPropertyValue(property).trim();
+    if (!overwrite && !dryRun) {
+      throw Error(
+        `Already exists: ${path.relative(root, file)} (use --overwrite)`
+      );
+    }
 
-    const key = property.startsWith('--')
-      ? property
-      : toCamel(property.replace(/^-ms-/, 'ms-'));
+    if (!dryRun) {
+      const backup = path.join(
+        backupRoot,
+        path.relative(root, file)
+      );
 
-    const numeric = /^-?(?:\d+\.?\d*|\.\d+)$/.test(raw);
+      fs.mkdirSync(path.dirname(backup), {
+        recursive: true,
+      });
 
-    result[key] =
-      numeric && (raw === '0' || UNIT_LESS.has(key))
-        ? Number(raw)
-        : raw;
-
-    if (el.style.getPropertyPriority(property)) {
-      result[key] = `${raw} !important`;
+      fs.copyFileSync(file, backup);
     }
   }
 
-  return result;
+  if (!dryRun) {
+    fs.mkdirSync(path.dirname(file), {
+      recursive: true,
+    });
+
+    fs.writeFileSync(file, content, 'utf8');
+  }
 }
 
-function attrName(name) {
-  const lower = name.toLowerCase();
-
-  if (HTML_TO_REACT.has(lower)) {
-    return HTML_TO_REACT.get(lower);
+function assetUrl(raw, ctx, fromDir = ctx.dir) {
+  if (!raw || isRemote(raw) || raw.startsWith('/')) {
+    return raw;
   }
 
-  if (lower.startsWith('data-') || lower.startsWith('aria-')) {
-    return name;
+  const match = /^([^?#]+)(.*)$/.exec(raw);
+  if (!match) return raw;
+
+  const src = path.resolve(
+    fromDir,
+    decodeURI(match[1])
+  );
+
+  const relative = path.relative(ctx.dir, src);
+
+  if (
+    relative === '..' ||
+    relative.startsWith(`..${path.sep}`) ||
+    path.isAbsolute(relative)
+  ) {
+    ctx.warnings.push(
+      `Asset outside page directory: ${raw}`
+    );
+
+    return raw;
   }
 
-  // Never execute inline HTML event-handler strings.
-  if (lower.startsWith('on')) {
-    return null;
+  if (!existsFile(src)) {
+    ctx.warnings.push(`Missing asset: ${raw}`);
+    return raw;
   }
 
-  return name;
+  const publicPath =
+    `stitch/${ctx.slug}/${relative.split(path.sep).join('/')}`;
+
+  ctx.assets.set(
+    src,
+    path.join(publicRoot, ...publicPath.split('/'))
+  );
+
+  return `/${publicPath}${match[2]}`;
 }
 
-function jsxAttrs(node, ctx) {
+function srcSet(raw, ctx) {
+  return raw.split(',').map(item => {
+    const match = /^(\s*)(\S+)(\s+.*)?$/.exec(item);
+
+    return match
+      ? `${match[1]}${assetUrl(match[2], ctx)}${match[3] || ''}`
+      : item;
+  }).join(',');
+}
+
+function styleObject(style, node) {
+  const el = node.ownerDocument.createElement('div');
+  el.setAttribute('style', style);
+
+  const obj = {};
+
+  for (let i = 0; i < el.style.length; i++) {
+    const cssName = el.style[i];
+
+    const key = cssName.startsWith('--')
+      ? cssName
+      : camel(cssName.replace(/^-ms-/, 'ms-'));
+
+    const value = el.style
+      .getPropertyValue(cssName)
+      .trim();
+
+    const priority = el.style.getPropertyPriority(cssName);
+
+    obj[key] = priority
+      ? `${value} !important`
+      : /^-?(?:\d+\.?\d*|\.\d+)$/.test(value) &&
+        (value === '0' || unitless.has(key))
+        ? Number(value)
+        : value;
+  }
+
+  return obj;
+}
+
+function attrs(node, ctx, skipHref = false) {
   let out = '';
 
-  for (const attr of Array.from(node.attributes)) {
-    const key = attrName(attr.name);
-    if (!key) continue;
+  for (const { name, value } of Array.from(node.attributes)) {
+    const lower = name.toLowerCase();
 
-    let value = attr.value;
+    if (
+      lower.startsWith('on') ||
+      (skipHref && lower === 'href')
+    ) {
+      continue;
+    }
 
-    if (key === 'style') {
-      const styles = parseStyle(value);
+    const key = attrMap[lower] ||
+      (
+        lower.startsWith('data-') ||
+        lower.startsWith('aria-')
+          ? lower
+          : name
+      );
 
-      if (Object.keys(styles).length) {
-        out += ` style={${JSON.stringify(styles)}}`;
+    if (lower === 'style') {
+      const style = styleObject(value, node);
+
+      if (Object.keys(style).length) {
+        out += ` style={${JSON.stringify(style)}}`;
       }
 
       continue;
     }
 
-    if (key === 'href' && node.tagName.toLowerCase() === 'a') {
+    if (
+      lower === 'value' &&
+      ['input', 'textarea', 'select'].includes(node.localName)
+    ) {
+      out += ` defaultValue={${JSON.stringify(value)}}`;
       continue;
     }
 
-    if (key === 'src' || key === 'poster' || key === 'srcSet') {
-      value = resolveAsset(value, ctx);
+    if (
+      lower === 'checked' &&
+      node.localName === 'input'
+    ) {
+      out += ' defaultChecked';
+      continue;
     }
 
-    if (
-      BOOLEAN.has(key) &&
-      (value === '' || value.toLowerCase() === key.toLowerCase())
-    ) {
-      out += ` ${key}`;
-    } else {
-      out += ` ${key}={${JSON.stringify(value)}}`;
+    if (boolAttrs.has(key)) {
+      if (
+        node.hasAttribute(name) &&
+        value !== 'false'
+      ) {
+        out += ` ${key}`;
+      }
+
+      continue;
     }
+
+    const resolved = lower === 'srcset'
+      ? srcSet(value, ctx)
+      : ['src', 'poster'].includes(lower)
+        ? assetUrl(value, ctx)
+        : value;
+
+    out += ` ${key}={${JSON.stringify(resolved)}}`;
   }
 
   return out;
 }
 
-function resolveAsset(value, ctx) {
-  if (
-    !value ||
-    /^(?:https?:|data:|blob:|\/\/|#|mailto:|tel:)/i.test(value)
-  ) {
-    return value;
-  }
-
-  // Preserve existing absolute paths.
-  if (value.startsWith('/')) {
-    return value;
-  }
-
-  // srcSet requires additional processing if present.
-  if (value.includes(',')) {
-    return value;
-  }
-
-  const clean = value.split(/[?#]/)[0];
-  const suffix = value.slice(clean.length);
-
-  const source = path.resolve(ctx.pageDir, clean);
-
-  const relativeSource = path.relative(ctx.pageDir, source);
-
-  if (
-    relativeSource === '..' ||
-    relativeSource.startsWith(`..${path.sep}`) ||
-    path.isAbsolute(relativeSource)
-  ) {
-    ctx.warnings.push(`Asset outside design folder: ${value}`);
-    return value;
-  }
-
-  if (
-    !fs.existsSync(source) ||
-    !fs.statSync(source).isFile()
-  ) {
-    ctx.warnings.push(`Asset not found: ${value}`);
-    return value;
-  }
-
-  const rel = relativeSource.replace(/\\/g, '/');
-
-  const destinationRel = path.posix.join(
-    'stitch',
-    ctx.slug,
-    rel
-  );
-
-  ctx.assets.set(
-    source,
-    path.join(
-      ROOT,
-      'apps/web/public',
-      ...destinationRel.split('/')
-    )
-  );
-
-  return `/${destinationRel}${suffix}`;
-}
-
-function linkTarget(href) {
+function internalRoute(href) {
   if (
     !href ||
-    /^(?:https?:|\/\/|mailto:|tel:|javascript:|data:)/i.test(href)
+    isRemote(href) ||
+    href.startsWith('#') ||
+    href.startsWith('/#')
   ) {
     return null;
   }
 
-  // Keep same-page anchor navigation.
-  if (href.startsWith('#')) {
-    return null;
-  }
+  const match = /^([^?#]*)(.*)$/.exec(href);
 
-  const match = href.match(/^([^?#]*)([?#].*)?$/);
-  if (!match) return null;
-
-  const pathname = match[1];
-  const suffix = match[2] || '';
-
-  const normalized = `/${pathname
+  const normalized = `/${match[1]
     .replace(/^\.\//, '')
-    .replace(/^\//, '')
+    .replace(/^\/+/, '')
     .replace(/\/$/, '')}`.toLowerCase();
 
-  const route = routeAliases.get(normalized);
+  const route = routes.get(normalized);
 
-  return route ? `${route}${suffix}` : null;
+  return route === undefined
+    ? null
+    : route + match[2];
 }
 
-function nodeToJSX(node, ctx) {
+function jsx(node, ctx) {
   if (node.nodeType === 3) {
-    return escapeJSXText(node.textContent || '');
-  }
-
-  if (node.nodeType === 8) {
-    return '';
+    return safeText(node.textContent || '');
   }
 
   if (node.nodeType !== 1) {
     return '';
   }
 
-  const tag = node.tagName.toLowerCase();
+  const tag = node.localName;
 
   if (
     ['script', 'style', 'noscript', 'template'].includes(tag)
@@ -310,186 +336,179 @@ function nodeToJSX(node, ctx) {
   }
 
   const children = Array.from(node.childNodes)
-    .map(child => nodeToJSX(child, ctx))
+    .map(n => jsx(n, ctx))
     .join('');
-
-  const attrs = jsxAttrs(node, ctx);
 
   if (tag === 'a') {
     const href = node.getAttribute('href');
-    const to = href && linkTarget(href);
+    const route = internalRoute(href);
+    const a = attrs(node, ctx, true);
 
-    if (to) {
+    if (route !== null) {
       ctx.usesLink = true;
 
-      return `<Link${attrs} to={${JSON.stringify(to)}}>${children}</Link>`;
+      return `<Link${a} to={${JSON.stringify(route)}}>${children}</Link>`;
     }
 
-    return `<a${attrs}${
+    return `<a${a}${
       href === null
         ? ''
         : ` href={${JSON.stringify(href)}}`
     }>${children}</a>`;
   }
 
-  if (VOID.has(tag)) {
-    return `<${tag}${attrs} />`;
+  if (tag === 'textarea') {
+    return `<textarea${attrs(node, ctx)} defaultValue={${
+      JSON.stringify(node.textContent || '')
+    }} />`;
   }
 
-  return `<${tag}${attrs}>${children}</${tag}>`;
+  if (tag === 'select') {
+    ctx.warnings.push(
+      'Check <select> defaultValue and option selection manually'
+    );
+  }
+
+  const a = attrs(node, ctx);
+
+  return voidTags.has(tag)
+    ? `<${tag}${a} />`
+    : `<${tag}${a}>${children}</${tag}>`;
 }
 
-function collectStyles(doc, ctx) {
-  const styles = [];
+function cssUrlRewrite(css, ctx, fromDir) {
+  return css.replace(
+    /url\(\s*(['"]?)([^)'"\s]+)\1\s*\)/gi,
+    (full, quote, value) =>
+      `url(${quote}${assetUrl(value, ctx, fromDir)}${quote})`
+  );
+}
 
-  for (const node of doc.querySelectorAll('style')) {
-    if (node.textContent?.trim()) {
-      styles.push(node.textContent);
+function collectCss(doc, ctx) {
+  const blocks = [];
+
+  for (const style of doc.querySelectorAll('style')) {
+    if (style.textContent?.trim()) {
+      blocks.push(
+        cssUrlRewrite(style.textContent, ctx, ctx.dir)
+      );
     }
   }
 
-  for (const link of doc.querySelectorAll('link[rel="stylesheet"]')) {
+  for (
+    const link of doc.querySelectorAll(
+      'link[rel~="stylesheet"]'
+    )
+  ) {
     const href = link.getAttribute('href');
 
-    if (
-      !href ||
-      /^(?:https?:|\/\/|data:)/i.test(href)
-    ) {
-      if (href) {
-        ctx.warnings.push(
-          `External stylesheet must be loaded separately: ${href}`
-        );
-      }
+    if (!href) continue;
 
+    if (isRemote(href)) {
+      ctx.remoteCss.push(href);
       continue;
     }
 
-    const local = path.resolve(
-      ctx.pageDir,
+    const file = path.resolve(
+      ctx.dir,
       href.split(/[?#]/)[0]
     );
 
-    if (
-      fs.existsSync(local) &&
-      fs.statSync(local).isFile()
-    ) {
-      styles.push(fs.readFileSync(local, 'utf8'));
+    if (existsFile(file)) {
+      blocks.push(
+        cssUrlRewrite(
+          fs.readFileSync(file, 'utf8'),
+          ctx,
+          path.dirname(file)
+        )
+      );
     } else {
-      ctx.warnings.push(`Stylesheet not found: ${href}`);
+      ctx.warnings.push(
+        `Missing stylesheet: ${href}`
+      );
     }
   }
 
-  if (!styles.length) {
-    return null;
-  }
-
-  // Preserve source CSS for visual fidelity.
-  return styles.join('\n\n');
+  return blocks.join('\n\n');
 }
 
-function safeWrite(file, content, { backup = true } = {}) {
-  if (dryRun) {
-    return;
+let failures = 0;
+
+for (const [slug, component] of pages) {
+  const dir = path.join(designRoot, slug);
+  const file = path.join(dir, 'code.html');
+
+  if (!existsFile(file)) {
+    console.error(
+      `MISSING ${path.relative(root, file)}`
+    );
+
+    failures++;
+    continue;
   }
 
-  fs.mkdirSync(path.dirname(file), {
-    recursive: true,
-  });
+  try {
+    const dom = new JSDOM(
+      fs.readFileSync(file, 'utf8')
+    );
 
-  if (fs.existsSync(file)) {
-    const current = fs.readFileSync(file, 'utf8');
+    const doc = dom.window.document;
+    const main = doc.querySelector('main');
 
-    if (current === content) {
-      return;
+    if (!main) {
+      throw Error('No <main> found');
     }
 
-    if (!overwrite) {
-      throw new Error(
-        `Refusing to overwrite ${path.relative(ROOT, file)}. Pass --overwrite.`
+    const ctx = {
+      slug,
+      dir,
+      assets: new Map(),
+      warnings: [],
+      usesLink: false,
+      remoteCss: [],
+    };
+
+    const content = jsx(main, ctx);
+    const css = collectCss(doc, ctx);
+
+    const title =
+      doc.title.trim() ||
+      `${component.replace(/Page$/, '')} | ApplyNora`;
+
+    const description =
+      doc.querySelector(
+        'meta[name="description"]'
+      )?.getAttribute('content') ||
+      `${component.replace(/Page$/, '')} | ApplyNora`;
+
+    const imports = [
+      "import { Helmet } from 'react-helmet-async';",
+    ];
+
+    if (ctx.usesLink) {
+      imports.push(
+        "import { Link } from 'react-router-dom';"
       );
     }
 
-    if (backup && !noBackup) {
-      const rel = path.relative(ROOT, file);
-      const destination = path.join(BACKUP_ROOT, rel);
-
-      fs.mkdirSync(path.dirname(destination), {
-        recursive: true,
-      });
-
-      fs.copyFileSync(file, destination);
-    }
-  }
-
-  fs.writeFileSync(file, content, 'utf8');
-}
-
-function run() {
-  let failed = 0;
-
-  for (const [slug, name] of PAGES) {
-    const pageDir = path.join(DESIGN_ROOT, slug);
-    const htmlFile = path.join(pageDir, 'code.html');
-
-    if (!fs.existsSync(htmlFile)) {
-      console.error(
-        `MISSING ${path.relative(ROOT, htmlFile)}`
+    if (css) {
+      imports.push(
+        `import './${component}.css';`
       );
-
-      failed++;
-      continue;
     }
 
-    try {
-      const dom = new JSDOM(
-        fs.readFileSync(htmlFile, 'utf8')
-      );
+    const remoteLinks = ctx.remoteCss
+      .map(
+        href =>
+          `<link rel="stylesheet" href={${
+            JSON.stringify(href)
+          }} />`
+      )
+      .join('\n        ');
 
-      const doc = dom.window.document;
-      const main = doc.querySelector('main');
+    const code = `${imports.join('\n')}
 
-      if (!main) {
-        throw new Error('No <main> element found');
-      }
-
-      const ctx = {
-        slug,
-        pageDir,
-        assets: new Map(),
-        warnings: [],
-        usesLink: false,
-      };
-
-      const jsx = nodeToJSX(main, ctx);
-      const css = collectStyles(doc, ctx);
-
-      const title =
-        doc.querySelector('title')?.textContent?.trim() ||
-        `${name.replace(/Page$/, '')} | ApplyNora`;
-
-      const description =
-        doc
-          .querySelector('meta[name="description"]')
-          ?.getAttribute('content') ||
-        `${name.replace(/Page$/, '')} on ApplyNora`;
-
-      const imports = [
-        "import { Helmet } from 'react-helmet-async';",
-      ];
-
-      if (ctx.usesLink) {
-        imports.push(
-          "import { Link } from 'react-router-dom';"
-        );
-      }
-
-      if (css) {
-        imports.push(`import './${name}.css';`);
-      }
-
-      const code = `${imports.join('\n')}
-
-export function ${name}() {
+export function ${component}() {
   return (
     <>
       <Helmet>
@@ -498,69 +517,76 @@ export function ${name}() {
           name="description"
           content={${JSON.stringify(description)}}
         />
+        ${remoteLinks}
       </Helmet>
-      ${jsx}
+      ${content}
     </>
   );
 }
 `;
 
-      const out = path.join(
-        OUTPUT_ROOT,
-        `${name}.tsx`
-      );
-
-      safeWrite(out, code);
-
-      if (css) {
-        safeWrite(
-          path.join(OUTPUT_ROOT, `${name}.css`),
-          css
-        );
-      }
-
-      for (const [source, destination] of ctx.assets) {
-        if (dryRun) {
-          continue;
-        }
-
-        fs.mkdirSync(path.dirname(destination), {
-          recursive: true,
-        });
-
-        if (fs.existsSync(destination) && !overwrite) {
-          continue;
-        }
-
-        fs.copyFileSync(source, destination);
-      }
-
-      console.log(
-        `${dryRun ? 'WOULD GENERATE' : 'GENERATED'} ` +
-        `${path.relative(ROOT, out)} ` +
-        `(${ctx.assets.size} assets)`
-      );
-
-      for (const warning of ctx.warnings) {
-        console.warn(`  WARN ${warning}`);
-      }
-
-    } catch (err) {
-      console.error(
-        `FAILED ${name}: ${err.message}`
-      );
-
-      failed++;
-    }
-  }
-
-  if (failed) {
-    console.error(
-      `${failed} page(s) could not be converted.`
+    save(
+      path.join(pagesRoot, `${component}.tsx`),
+      code
     );
 
-    process.exitCode = 1;
+    if (css) {
+      save(
+        path.join(pagesRoot, `${component}.css`),
+        css
+      );
+    }
+
+    for (
+      const [source, destination] of ctx.assets
+    ) {
+      if (
+        existsFile(destination) &&
+        !overwrite
+      ) {
+        ctx.warnings.push(
+          `Existing asset unchanged: ${
+            path.relative(root, destination)
+          }`
+        );
+
+        continue;
+      }
+
+      if (!dryRun) {
+        fs.mkdirSync(
+          path.dirname(destination),
+          { recursive: true }
+        );
+
+        fs.copyFileSync(
+          source,
+          destination
+        );
+      }
+    }
+
+    console.log(
+      `${dryRun ? 'WOULD GENERATE' : 'GENERATED'} ` +
+      `${component} (${ctx.assets.size} assets)`
+    );
+
+    for (const warning of ctx.warnings) {
+      console.warn(`  WARN ${warning}`);
+    }
+  } catch (error) {
+    failures++;
+
+    console.error(
+      `FAILED ${component}: ${error.message}`
+    );
   }
 }
 
-run();
+if (failures) {
+  console.error(
+    `${failures} page(s) failed`
+  );
+
+  process.exitCode = 1;
+}
