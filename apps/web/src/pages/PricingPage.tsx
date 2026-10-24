@@ -1,538 +1,449 @@
-
-
-import { Helmet } from 'react-helmet-async';
-import { Link } from 'react-router-dom';
+import { Helmet } from "react-helmet-async";
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import { PRICING_CONFIG } from "../config/pricing";
 
 export function PricingPage() {
+  const [billing, setBilling] = useState("monthly");
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
+
+  const toggleFaq = (faq: number) => {
+    setActiveFaq(activeFaq === faq ? null : faq);
+  };
+
   return (
     <>
       <Helmet>
-           <title>PricingPage - ApplyNora</title>
-           <meta name="description" content="PricingPage for ApplyNora" />
-       </Helmet>
-      <main className="w-full pt-20 bg-surface-ground min-h-screen"><div className="flex flex-col w-full">
-{/*  Hero / Introduction Banner  */}
-<section className="relative w-full px-margin-mobile md:px-margin lg:px-margin-desktop py-space-xl overflow-hidden">
-{/*  Atmospheric Ambient Glow Orbs  */}
-<div className="absolute top-10 left-1/4 w-96 h-96 rounded-full bg-secondary-container/20 blur-3xl pointer-events-none"></div>
-<div className="absolute -top-20 right-1/4 w-[32rem] h-[32rem] rounded-full bg-surface-blush/30 blur-3xl pointer-events-none"></div>
-<div className="relative max-w-5xl mx-auto text-center flex flex-col items-center">
-{/*  Overline Pill  */}
-<div className="inline-flex items-center gap-space-xs px-space-md py-space-xs rounded-full bg-surface-container-high shadow-sm mb-space-md">
-<span className="w-2 h-2 rounded-full bg-primary-container animate-ping"></span>
-<span className="font-label-sm text-label-sm text-primary uppercase tracking-wider">Paystack Verified • Complete Transparency</span>
-</div>
-<h1 className="font-headline-xl text-headline-xl text-on-surface tracking-tight mb-space-md max-w-4xl">
-        Transparent, Value-Driven Plans.
-      </h1>
-<p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
-        No hidden fees, no automatic runaway charges. Upgrade, renew, or cancel with complete peace of mind through secured gateway authorization.
-      </p>
-{/*  Paystack Currency & Cadence Switcher  */}
-<div className="mt-space-xl p-space-xs rounded-full bg-surface-card shadow-md flex items-center gap-space-xs">
-<button className="flex items-center gap-space-xs px-space-lg py-space-sm rounded-full font-label-md text-label-md transition-all duration-300 bg-gradient-to-r from-primary-container to-secondary text-on-primary shadow-sm cursor-pointer" id="monthlyBtn">
-<span className="material-symbols-outlined text-[18px]">calendar_month</span>
-          Monthly Billing
-        </button>
-<button className="flex items-center gap-space-xs px-space-lg py-space-sm rounded-full font-label-md text-label-md text-on-surface-variant hover:text-on-surface transition-all duration-300 cursor-pointer" id="annualBtn">
-<span className="material-symbols-outlined text-[18px]">verified</span>
-          Annual Billing
-          <span className="px-space-xs py-0.5 rounded-full bg-surface-blush text-primary text-caption font-bold ml-1">Save 20%</span>
-</button>
-</div>
-{/*  Currency Switcher Pill  */}
-<div className="mt-space-md flex items-center gap-space-sm text-slate-muted font-label-sm text-label-sm">
-<span>Payment Currency:</span>
-<button className="px-space-sm py-0.5 rounded-lg bg-surface-container-highest text-primary font-bold transition-all" id="currUSD">USD ($)</button>
-<button className="px-space-sm py-0.5 rounded-lg text-on-surface-variant hover:bg-surface-container transition-all" id="currNGN">NGN (₦ via Paystack)</button>
-</div>
-</div>
-</section>
-{/*  3-Tier Pricing Cards Grid  */}
-<section className="w-full px-margin-mobile md:px-margin lg:px-margin-desktop pb-space-xl">
-<div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-gutter items-stretch">
-{/*  1. Free Tier (Explorer)  */}
-<div className="flex flex-col justify-between rounded-xl bg-surface-card p-space-xl shadow-md transition-all duration-300 hover:shadow-xl">
-<div className="flex flex-col">
-<div className="flex items-center justify-between mb-space-sm">
-<span className="font-label-md text-label-md text-slate-muted uppercase tracking-wider">Explorer</span>
-<span className="px-space-sm py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">Entry Level</span>
-</div>
-<h2 className="font-headline-md text-headline-md text-on-surface mb-space-xs">Free Tier</h2>
-<p className="font-body-sm text-body-sm text-on-surface-variant mb-space-lg">
-            Essential foundation for students and professionals starting structured career positioning.
-          </p>
-{/*  Price Indicator  */}
-<div className="mb-space-lg pb-space-md bg-surface-ground p-space-md rounded-lg">
-<div className="flex items-baseline gap-space-xs">
-<span className="font-headline-xl text-headline-xl text-on-surface price-val-free">$0</span>
-<span className="font-body-md text-body-md text-slate-muted">/ forever</span>
-</div>
-<p className="font-caption text-caption text-slate-muted mt-1">Zero credit card required at sign up</p>
-</div>
-{/*  Entitlements List  */}
-<div className="flex flex-col gap-space-sm mb-space-xl">
-<span className="font-label-sm text-label-sm uppercase tracking-wider text-slate-muted">Includes:</span>
-<div className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
-<span className="font-body-sm text-body-sm text-on-surface"><strong>10 Fact-grounded</strong> AI tailored drafts/mo</span>
-</div>
-<div className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
-<span className="font-body-sm text-body-sm text-on-surface">ATS plain-text CV builder & PDF export</span>
-</div>
-<div className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
-<span className="font-body-sm text-body-sm text-on-surface">Manual interview stage tracker & notes</span>
-</div>
-<div className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
-<span className="font-body-sm text-body-sm text-on-surface">1 Master CV in private secure vault</span>
-</div>
-<div className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
-<span className="font-body-sm text-body-sm text-on-surface">Community Slack & Docs access</span>
-</div>
-<div className="flex items-start gap-space-sm opacity-40">
-<span className="material-symbols-outlined text-slate-muted text-[20px] mt-0.5 shrink-0">block</span>
-<span className="font-body-sm text-body-sm text-slate-muted line-through">Scoped Gmail interview sync</span>
-</div>
-<div className="flex items-start gap-space-sm opacity-40">
-<span className="material-symbols-outlined text-slate-muted text-[20px] mt-0.5 shrink-0">block</span>
-<span className="font-body-sm text-body-sm text-slate-muted line-through">Telegram dispatch notifications</span>
-</div>
-</div>
-</div>
-<Link className="w-full text-center py-space-sm px-space-md rounded-lg font-label-md text-label-md bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors" data-path="signup" to="/">
-          Get Started Free
-        </Link>
-</div>
-{/*  2. Professional Tier (Most Popular)  */}
-<div className="relative flex flex-col justify-between rounded-xl bg-surface-card p-space-xl shadow-xl transition-all duration-300 hover:shadow-2xl -mt-0 lg:-mt-4 bg-gradient-to-b from-surface-card via-surface-card to-surface-blush-subtle/50">
-{/*  Floating Highlight Badge  */}
-<div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-space-md py-1 rounded-full bg-primary-container text-on-primary font-label-sm text-label-sm shadow-md flex items-center gap-1">
-<span className="material-symbols-outlined text-[16px] text-surface-blush">stars</span>
-          Most Popular for Job Seekers
-        </div>
-<div className="flex flex-col">
-<div className="flex items-center justify-between mb-space-sm mt-1">
-<span className="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">Active Search</span>
-<span className="px-space-sm py-0.5 rounded-full bg-surface-blush text-primary font-label-sm text-label-sm">High Value</span>
-</div>
-<h2 className="font-headline-md text-headline-md text-on-surface mb-space-xs">Professional Tier</h2>
-<p className="font-body-sm text-body-sm text-on-surface-variant mb-space-lg">
-            High-cadence applications with verified multi-model fallback, auto sync, and instant dispatches.
-          </p>
-{/*  Price Indicator  */}
-<div className="mb-space-lg pb-space-md bg-surface-container-low p-space-md rounded-lg">
-<div className="flex items-baseline gap-space-xs">
-<span className="font-headline-xl text-headline-xl text-primary" id="proPrice">$29</span>
-<span className="font-body-md text-body-md text-slate-muted" id="proPeriod">/ month</span>
-</div>
-<p className="font-caption text-caption text-secondary font-semibold mt-1" id="proAltPaystack">
-              ₦35,000 NGN via Paystack recurring or manual renewal
-            </p>
-</div>
-{/*  Entitlements List  */}
-<div className="flex flex-col gap-space-sm mb-space-xl">
-<span className="font-label-sm text-label-sm uppercase tracking-wider text-primary font-bold">Everything in Explorer, plus:</span>
-<div className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-primary text-[20px] mt-0.5 shrink-0">check_circle</span>
-<span className="font-body-sm text-body-sm text-on-surface"><strong>60 Fact-grounded</strong> AI tailored drafts/mo</span>
-</div>
-<div className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-primary text-[20px] mt-0.5 shrink-0">check_circle</span>
-<span className="font-body-sm text-body-sm text-on-surface">Multi-model fallback <em>(Gemini Pro + NVIDIA)</em></span>
-</div>
-<div className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-primary text-[20px] mt-0.5 shrink-0">check_circle</span>
-<span className="font-body-sm text-body-sm text-on-surface">Unlimited ATS CV versions & DOCX export</span>
-</div>
-<div className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-primary text-[20px] mt-0.5 shrink-0">check_circle</span>
-<span className="font-body-sm text-body-sm text-on-surface"><strong>Scoped Gmail sync</strong> & interview intelligence</span>
-</div>
-<div className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-primary text-[20px] mt-0.5 shrink-0">check_circle</span>
-<span className="font-body-sm text-body-sm text-on-surface">24h & 1h Telegram + Email reminders</span>
-</div>
-<div className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-primary text-[20px] mt-0.5 shrink-0">check_circle</span>
-<span className="font-body-sm text-body-sm text-on-surface">Google Sheets two-way tracking sync</span>
-</div>
-<div className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-primary text-[20px] mt-0.5 shrink-0">check_circle</span>
-<span className="font-body-sm text-body-sm text-on-surface">Priority queue email support (&lt; 4h SLA)</span>
-</div>
-</div>
-</div>
-<Link className="w-full text-center py-space-sm px-space-md rounded-lg font-label-md text-label-md text-on-primary bg-gradient-to-r from-primary-container to-secondary shadow-md hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-space-xs" data-path="checkout-pro" to="/">
-<span className="material-symbols-outlined text-[18px]">bolt</span>
-          Start 14-Day Pro Trial
-        </Link>
-</div>
-{/*  3. Executive Tier (Career Accelerator)  */}
-<div className="flex flex-col justify-between rounded-xl bg-surface-card p-space-xl shadow-md transition-all duration-300 hover:shadow-xl">
-<div className="flex flex-col">
-<div className="flex items-center justify-between mb-space-sm">
-<span className="font-label-md text-label-md text-slate-muted uppercase tracking-wider">Career Accelerator</span>
-<span className="px-space-sm py-0.5 rounded-full bg-surface-container text-on-surface-variant font-label-sm text-label-sm">High Cadence</span>
-</div>
-<h2 className="font-headline-md text-headline-md text-on-surface mb-space-xs">Executive Tier</h2>
-<p className="font-body-sm text-body-sm text-on-surface-variant mb-space-lg">
-            Complete executive suite with dry-run automations, multi-tenant roles, and strategic 1-on-1 human advisory.
-          </p>
-{/*  Price Indicator  */}
-<div className="mb-space-lg pb-space-md bg-surface-ground p-space-md rounded-lg">
-<div className="flex items-baseline gap-space-xs">
-<span className="font-headline-xl text-headline-xl text-on-surface" id="execPrice">$69</span>
-<span className="font-body-md text-body-md text-slate-muted" id="execPeriod">/ month</span>
-</div>
-<p className="font-caption text-caption text-slate-muted mt-1" id="execAltPaystack">
-              ₦85,000 NGN via Paystack recurring or manual invoice
-            </p>
-</div>
-{/*  Entitlements List  */}
-<div className="flex flex-col gap-space-sm mb-space-xl">
-<span className="font-label-sm text-label-sm uppercase tracking-wider text-slate-muted">Everything in Pro, plus:</span>
-<div className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
-<span className="font-body-sm text-body-sm text-on-surface"><strong>200 Fact-grounded</strong> AI tailored drafts/mo</span>
-</div>
-<div className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
-<span className="font-body-sm text-body-sm text-on-surface"><strong>Dry-run automation</strong> pipeline with batch queueing</span>
-</div>
-<div className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
-<span className="font-body-sm text-body-sm text-on-surface">Advanced skill-gap analysis & salary benchmarking</span>
-</div>
-<div className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
-<span className="font-body-sm text-body-sm text-on-surface">Dedicated account vault with unlimited CVs</span>
-</div>
-<div className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
-<span className="font-body-sm text-body-sm text-on-surface">Multi-tenant role matching & headhunter radar</span>
-</div>
-<div className="flex items-start gap-space-sm">
-<span className="material-symbols-outlined text-success text-[20px] mt-0.5 shrink-0">check_circle</span>
-<span className="font-body-sm text-body-sm text-on-surface"><strong>1-on-1 career strategy onboarding</strong> session</span>
-</div>
-</div>
-</div>
-<Link className="w-full text-center py-space-sm px-space-md rounded-lg font-label-md text-label-md bg-inverse-surface text-inverse-on-surface hover:bg-slate-muted transition-colors flex items-center justify-center gap-space-xs" data-path="checkout-exec" to="/">
-<span className="material-symbols-outlined text-[18px]">verified_user</span>
-          Get Executive Access
-        </Link>
-</div>
-</div>
-</section>
-{/*  Value & Security Guarantees: Paystack & Fair Billing Section  */}
-<section className="w-full px-margin-mobile md:px-margin lg:px-margin-desktop py-space-lg">
-<div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-gutter">
-{/*  Card 1: Paystack Secured  */}
-<div className="p-space-lg rounded-xl bg-surface-card shadow-sm flex flex-col gap-space-sm">
-<div className="w-12 h-12 rounded-lg bg-surface-container flex items-center justify-center text-primary">
-<span className="material-symbols-outlined text-[28px]">lock</span>
-</div>
-<h3 className="font-headline-sm text-headline-sm text-on-surface">Paystack Secured Gateway</h3>
-<p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-          Bank-grade TLS 256-bit encryption. Seamlessly pay via credit card, bank transfer, or USSD with immediate receipt issuance and automated tokenization.
-        </p>
-<div className="flex items-center gap-space-xs text-caption font-bold text-success mt-auto">
-<span className="material-symbols-outlined text-[16px]">check</span>
-          PCI-DSS Level 1 Certified Integration
-        </div>
-</div>
-{/*  Card 2: Fair Billing / No Surprise Renewals  */}
-<div className="p-space-lg rounded-xl bg-surface-card shadow-sm flex flex-col gap-space-sm">
-<div className="w-12 h-12 rounded-lg bg-surface-blush-subtle flex items-center justify-center text-secondary">
-<span className="material-symbols-outlined text-[28px]">sentiment_very_satisfied</span>
-</div>
-<h3 className="font-headline-sm text-headline-sm text-on-surface">Zero Surprise Renewals</h3>
-<p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-          Choose between manual monthly authorization or automatic billing with a 3-day advance email notification. Cancel anytime with a single click inside your dashboard.
-        </p>
-<div className="flex items-center gap-space-xs text-caption font-bold text-primary mt-auto">
-<span className="material-symbols-outlined text-[16px]">notifications_active</span>
-          Explicit 72h renewal warning notices
-        </div>
-</div>
-{/*  Card 3: Strict Privacy & Zero Reselling  */}
-<div className="p-space-lg rounded-xl bg-surface-card shadow-sm flex flex-col gap-space-sm">
-<div className="w-12 h-12 rounded-lg bg-surface-container-high flex items-center justify-center text-primary">
-<span className="material-symbols-outlined text-[28px]">shield_person</span>
-</div>
-<h3 className="font-headline-sm text-headline-sm text-on-surface">Strict Privacy & Zero Reselling</h3>
-<p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-          Your CVs, career metrics, and interview communications are confidential. We never sell profile data to recruitment brokers or third-party ad networks.
-        </p>
-<div className="flex items-center gap-space-xs text-caption font-bold text-success mt-auto">
-<span className="material-symbols-outlined text-[16px]">verified</span>
-          Encrypted RLS & NDPA/GDPR Compliant
-        </div>
-</div>
-</div>
-</section>
-{/*  Interactive ROI & Usage Calculator Widget  */}
-<section className="w-full px-margin-mobile md:px-margin lg:px-margin-desktop py-space-xl">
-<div className="max-w-7xl mx-auto rounded-xl bg-surface-card p-space-xl shadow-md">
-<div className="grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center">
-<div className="lg:col-span-5 flex flex-col gap-space-sm">
-<span className="font-label-sm text-label-sm text-primary uppercase tracking-wider font-bold">Value Multiplier</span>
-<h2 className="font-headline-md text-headline-md text-on-surface">Calculate Your Weekly Time Saved</h2>
-<p className="font-body-md text-body-md text-on-surface-variant">
-            Tailoring each CV manually takes on average 45 minutes. With ApplyNora fact-grounded drafts and automatic tracking, you reclaim hours every week.
-          </p>
-<div className="mt-space-md flex flex-col gap-space-sm">
-<div className="flex justify-between items-center">
-<span className="font-label-md text-label-md text-on-surface">Target Applications / Month:</span>
-<span className="font-headline-sm text-headline-sm text-primary" id="calcAppsValue">30</span>
-</div>
-<input className="w-full accent-primary h-2 bg-surface-container rounded-lg cursor-pointer" id="appRange" max="150" min="5" type="range" value="30" />
-<div className="flex justify-between text-caption text-slate-muted">
-<span>5 apps</span>
-<span>75 apps</span>
-<span>150 apps</span>
-</div>
-</div>
-</div>
-{/*  Metric Output Cards  */}
-<div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-space-md">
-<div className="p-space-md rounded-lg bg-surface-ground flex flex-col justify-between">
-<span className="font-label-sm text-label-sm text-slate-muted">Hours Reclaimed</span>
-<div className="my-space-sm">
-<span className="font-headline-lg text-headline-lg text-primary font-bold" id="hoursSaved">22.5</span>
-<span className="font-body-sm text-body-sm text-on-surface-variant">hrs/mo</span>
-</div>
-<span className="font-caption text-caption text-success font-semibold flex items-center gap-1">
-<span className="material-symbols-outlined text-[14px]">trending_up</span> 85% faster submissions
-            </span>
-</div>
-<div className="p-space-md rounded-lg bg-surface-ground flex flex-col justify-between">
-<span className="font-label-sm text-label-sm text-slate-muted">ATS Match Velocity</span>
-<div className="my-space-sm">
-<span className="font-headline-lg text-headline-lg text-on-surface font-bold" id="matchScore">94%</span>
-<span className="font-body-sm text-body-sm text-on-surface-variant">avg</span>
-</div>
-<span className="font-caption text-caption text-slate-muted flex items-center gap-1">
-<span className="material-symbols-outlined text-[14px]">tune</span> Multi-model grounded
-            </span>
-</div>
-<div className="p-space-md rounded-lg bg-surface-ground flex flex-col justify-between">
-<span className="font-label-sm text-label-sm text-slate-muted">Suggested Tier</span>
-<div className="my-space-sm">
-<span className="font-headline-md text-headline-md text-secondary font-bold" id="suggestedTier">Professional</span>
-</div>
-<Link className="font-caption text-caption text-primary hover:underline font-bold flex items-center gap-1" data-path="signup" to="/">
-              Choose plan <span className="material-symbols-outlined text-[14px]">arrow_forward</span>
-</Link>
-</div>
-</div>
-</div>
-</div>
-</section>
-{/*  Exhaustive Feature Comparison Matrix  */}
-<section className="w-full px-margin-mobile md:px-margin lg:px-margin-desktop py-space-xl">
-<div className="max-w-7xl mx-auto">
-<div className="text-center mb-space-xl">
-<h2 className="font-headline-lg text-headline-lg text-on-surface mb-space-xs">Exhaustive Entitlement Matrix</h2>
-<p className="font-body-md text-body-md text-on-surface-variant max-w-xl mx-auto">
-          Every capability itemized across security, AI engines, third-party sync, and support SLAs.
-        </p>
-</div>
-<div className="w-full overflow-x-auto rounded-xl bg-surface-card shadow-sm">
-<table className="w-full text-left border-collapse min-w-[700px]">
-<thead>
-<tr className="bg-surface-ground">
-<th className="py-space-md px-space-lg font-label-md text-label-md text-on-surface w-1/3">Capability & Entitlements</th>
-<th className="py-space-md px-space-md font-label-md text-label-md text-slate-muted text-center w-1/5">Free (Explorer)</th>
-<th className="py-space-md px-space-md font-label-md text-label-md text-primary text-center w-1/5 bg-surface-blush-subtle">Professional</th>
-<th className="py-space-md px-space-md font-label-md text-label-md text-on-surface text-center w-1/5">Executive</th>
-</tr>
-</thead>
-<tbody className="divide-y divide-surface-container">
-{/*  Category: AI Gateway & Modeling  */}
-<tr className="bg-surface-container-low">
-<td className="py-space-xs px-space-lg font-label-sm text-label-sm uppercase tracking-wider text-slate-muted font-bold" colSpan={4}>
-                AI Gateway & Tailoring
-              </td>
-</tr>
-<tr className="hover:bg-surface-blush-subtle/30 transition-colors">
-<td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Monthly Tailored CV & Cover Drafts</td>
-<td className="py-space-md px-space-md text-center font-body-sm text-body-sm text-on-surface-variant">10 / month</td>
-<td className="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-primary bg-surface-blush-subtle/50">60 / month</td>
-<td className="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-on-surface">200 / month</td>
-</tr>
-<tr className="hover:bg-surface-blush-subtle/30 transition-colors">
-<td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Multi-Model Engine Fallback (Gemini + NVIDIA)</td>
-<td className="py-space-md px-space-md text-center"><span className="material-symbols-outlined text-slate-muted text-[18px]">remove</span></td>
-<td className="py-space-md px-space-md text-center bg-surface-blush-subtle/50"><span className="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
-<td className="py-space-md px-space-md text-center"><span className="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
-</tr>
-<tr className="hover:bg-surface-blush-subtle/30 transition-colors">
-<td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Fact-grounding Truth Guard (No Hallucination)</td>
-<td className="py-space-md px-space-md text-center"><span className="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
-<td className="py-space-md px-space-md text-center bg-surface-blush-subtle/50"><span className="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
-<td className="py-space-md px-space-md text-center"><span className="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
-</tr>
-<tr className="hover:bg-surface-blush-subtle/30 transition-colors">
-<td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Automated Dry-Run & Queue Pipeline</td>
-<td className="py-space-md px-space-md text-center"><span className="material-symbols-outlined text-slate-muted text-[18px]">remove</span></td>
-<td className="py-space-md px-space-md text-center bg-surface-blush-subtle/50"><span className="material-symbols-outlined text-slate-muted text-[18px]">remove</span></td>
-<td className="py-space-md px-space-md text-center"><span className="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
-</tr>
-{/*  Category: Document Vault  */}
-<tr className="bg-surface-container-low">
-<td className="py-space-xs px-space-lg font-label-sm text-label-sm uppercase tracking-wider text-slate-muted font-bold" colSpan={4}>
-                Document Vault & Exporting
-              </td>
-</tr>
-<tr className="hover:bg-surface-blush-subtle/30 transition-colors">
-<td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Master CV Private Storage</td>
-<td className="py-space-md px-space-md text-center font-body-sm text-body-sm text-on-surface-variant">1 Profile</td>
-<td className="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-primary bg-surface-blush-subtle/50">Unlimited</td>
-<td className="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-on-surface">Unlimited Dedicated</td>
-</tr>
-<tr className="hover:bg-surface-blush-subtle/30 transition-colors">
-<td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Export Formats</td>
-<td className="py-space-md px-space-md text-center font-body-sm text-body-sm text-on-surface-variant">PDF only</td>
-<td className="py-space-md px-space-md text-center font-body-sm text-body-sm text-primary font-bold bg-surface-blush-subtle/50">PDF, DOCX, TXT</td>
-<td className="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-on-surface">PDF, DOCX, LaTeX, TXT</td>
-</tr>
-{/*  Category: Integration Scopes  */}
-<tr className="bg-surface-container-low">
-<td className="py-space-xs px-space-lg font-label-sm text-label-sm uppercase tracking-wider text-slate-muted font-bold" colSpan={4}>
-                Automations & Integrations
-              </td>
-</tr>
-<tr className="hover:bg-surface-blush-subtle/30 transition-colors">
-<td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Gmail Scoped Interview Ingestion</td>
-<td className="py-space-md px-space-md text-center"><span className="material-symbols-outlined text-slate-muted text-[18px]">remove</span></td>
-<td className="py-space-md px-space-md text-center bg-surface-blush-subtle/50"><span className="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
-<td className="py-space-md px-space-md text-center"><span className="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
-</tr>
-<tr className="hover:bg-surface-blush-subtle/30 transition-colors">
-<td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Telegram Dispatch (24h & 1h Alerts)</td>
-<td className="py-space-md px-space-md text-center"><span className="material-symbols-outlined text-slate-muted text-[18px]">remove</span></td>
-<td className="py-space-md px-space-md text-center bg-surface-blush-subtle/50"><span className="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
-<td className="py-space-md px-space-md text-center"><span className="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
-</tr>
-<tr className="hover:bg-surface-blush-subtle/30 transition-colors">
-<td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Google Sheets 2-Way Sync</td>
-<td className="py-space-md px-space-md text-center"><span className="material-symbols-outlined text-slate-muted text-[18px]">remove</span></td>
-<td className="py-space-md px-space-md text-center bg-surface-blush-subtle/50"><span className="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
-<td className="py-space-md px-space-md text-center"><span className="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
-</tr>
-{/*  Category: Security & Support  */}
-<tr className="bg-surface-container-low">
-<td className="py-space-xs px-space-lg font-label-sm text-label-sm uppercase tracking-wider text-slate-muted font-bold" colSpan={4}>
-                Security, Privacy & Support
-              </td>
-</tr>
-<tr className="hover:bg-surface-blush-subtle/30 transition-colors">
-<td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Row-Level Security (RLS) & MFA</td>
-<td className="py-space-md px-space-md text-center"><span className="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
-<td className="py-space-md px-space-md text-center bg-surface-blush-subtle/50"><span className="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
-<td className="py-space-md px-space-md text-center"><span className="material-symbols-outlined text-success text-[20px]">check_circle</span></td>
-</tr>
-<tr className="hover:bg-surface-blush-subtle/30 transition-colors">
-<td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">Support SLA</td>
-<td className="py-space-md px-space-md text-center font-body-sm text-body-sm text-slate-muted">Community & Docs</td>
-<td className="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-primary bg-surface-blush-subtle/50">Priority Email (&lt; 4h)</td>
-<td className="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-on-surface">Dedicated Concierge & Strategy Call</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
-{/*  Frequently Asked Questions Accordion  */}
-<section className="w-full px-margin-mobile md:px-margin lg:px-margin-desktop py-space-xl">
-<div className="max-w-4xl mx-auto flex flex-col items-center">
-<div className="text-center mb-space-lg">
-<span className="font-label-sm text-label-sm text-primary uppercase tracking-wider font-bold">Got Questions?</span>
-<h2 className="font-headline-lg text-headline-lg text-on-surface mt-1">Frequently Asked Questions</h2>
-<p className="font-body-md text-body-md text-on-surface-variant mt-2">
-          Clear answers about billing authorizations, Paystack payment methods, and account upgrades.
-        </p>
-</div>
-<div className="w-full flex flex-col gap-space-sm">
-{/*  FAQ 1  */}
-<div className="p-space-lg rounded-xl bg-surface-card shadow-sm cursor-pointer">
-<div className="flex items-center justify-between">
-<h4 className="font-headline-sm text-headline-sm text-on-surface">How does Paystack billing work for Nigerian and international cards?</h4>
-<span className="material-symbols-outlined text-primary transition-transform duration-200" id="icon-faq-1">expand_more</span>
-</div>
-<div className="hidden mt-space-sm pt-space-sm font-body-sm text-body-sm text-on-surface-variant leading-relaxed" id="faq-1">
-            We use Paystack to process payments in Nigerian Naira (₦) as well as USD. For Nigerian accounts, you can pay via local Mastercard, Visa, Verve, direct bank transfer, or USSD code. International applicants outside Nigeria can pay via standard Visa and Mastercard in USD. All conversions follow live interbank settlement rates with no surcharges.
-          </div>
-</div>
-{/*  FAQ 2  */}
-<div className="p-space-lg rounded-xl bg-surface-card shadow-sm cursor-pointer">
-<div className="flex items-center justify-between">
-<h4 className="font-headline-sm text-headline-sm text-on-surface">Will I be charged unexpectedly after my trial or subscription expires?</h4>
-<span className="material-symbols-outlined text-primary transition-transform duration-200" id="icon-faq-2">expand_more</span>
-</div>
-<div className="hidden mt-space-sm pt-space-sm font-body-sm text-body-sm text-on-surface-variant leading-relaxed" id="faq-2">
-            Never. ApplyNora implements a strict Zero Surprise Renewal policy. You can choose "Manual Renewal" at checkout to authorize each monthly billing cycle explicitly. For auto-renewing subscriptions, we dispatch an advance email notification 72 hours before payment processing, and cancellations are effective instantly.
-          </div>
-</div>
-{/*  FAQ 3  */}
-<div className="p-space-lg rounded-xl bg-surface-card shadow-sm cursor-pointer">
-<div className="flex items-center justify-between">
-<h4 className="font-headline-sm text-headline-sm text-on-surface">What happens if I exhaust my fact-grounded drafts quota?</h4>
-<span className="material-symbols-outlined text-primary transition-transform duration-200" id="icon-faq-3">expand_more</span>
-</div>
-<div className="hidden mt-space-sm pt-space-sm font-body-sm text-body-sm text-on-surface-variant leading-relaxed" id="faq-3">
-            If you exceed your tier's monthly AI draft allowance, your existing documents, ATS templates, and tracking sync remain 100% operational. You can either purchase a supplementary top-up draft pack through Paystack or instantly upgrade to the next tier for prorated access.
-          </div>
-</div>
-{/*  FAQ 4  */}
-<div className="p-space-lg rounded-xl bg-surface-card shadow-sm cursor-pointer">
-<div className="flex items-center justify-between">
-<h4 className="font-headline-sm text-headline-sm text-on-surface">Is my Gmail and CV data shared or used to train third-party AI models?</h4>
-<span className="material-symbols-outlined text-primary transition-transform duration-200" id="icon-faq-4">expand_more</span>
-</div>
-<div className="hidden mt-space-sm pt-space-sm font-body-sm text-body-sm text-on-surface-variant leading-relaxed" id="faq-4">
-            Absolutely not. We use restricted Google OAuth scopes solely to detect interview schedules and company responses. Your CV credentials and emails are isolated via Postgres Row-Level Security (RLS) and are never used to train public models or shared with outside recruiters.
-          </div>
-</div>
-</div>
-</div>
-</section>
-{/*  Bottom CTA Banner  */}
-<section className="w-full px-margin-mobile md:px-margin lg:px-margin-desktop py-space-xl">
-<div className="max-w-7xl mx-auto rounded-2xl bg-gradient-to-r from-primary-container via-secondary to-tertiary p-space-xl text-on-primary shadow-xl relative overflow-hidden">
-{/*  Decorative Backdrop Geometry  */}
-<div className="absolute -right-10 -bottom-10 w-80 h-80 rounded-full bg-white/10 blur-2xl pointer-events-none"></div>
-<div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-space-lg">
-<div className="flex flex-col gap-space-xs max-w-xl">
-<span className="font-label-sm text-label-sm uppercase tracking-wider text-surface-blush">Accelerate Your Search</span>
-<h2 className="font-headline-lg text-headline-lg font-extrabold text-on-primary">
-            Ready for a structured, interview-generating search?
-          </h2>
-<p className="font-body-md text-body-md text-white/90">
-            Join thousands of professionals landing higher-compensation roles with AI-guided ATS precision.
-          </p>
-</div>
-<div className="flex flex-col sm:flex-row items-center gap-space-sm shrink-0">
-<Link className="px-space-lg py-space-sm rounded-lg bg-surface-card text-primary font-label-md text-label-md hover:bg-surface-blush-subtle shadow-md transition-all" data-path="signup" to="/">
-            Get Started Free
-          </Link>
-<Link className="px-space-lg py-space-sm rounded-lg bg-white/20 backdrop-blur-md text-on-primary font-label-md text-label-md hover:bg-white/30 transition-all" data-path="checkout-pro" to="/">
-            Start 14-Day Pro Trial
-          </Link>
-</div>
-</div>
-</div>
-</section>
-{/*  Client-side Interactive Logic for Pricing, Currency & FAQ  */}
+        <title>Pricing - ApplyNora</title>
+        <meta name="description" content="Pricing plans for ApplyNora executive career platform" />
+      </Helmet>
+      <div className="flex flex-col w-full">
+        {/* AMBIENT GLOW SYSTEM */}
+        <div className="relative w-full overflow-hidden bg-surface-ground">
+          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-gradient-to-bl from-primary-fixed/20 to-transparent rounded-full blur-3xl pointer-events-none -z-10"></div>
+          <div className="absolute top-40 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-secondary-fixed/20 to-transparent rounded-full blur-3xl pointer-events-none -z-10"></div>
 
-</div></main>
+          {/* SECTION 1: HEADER & TOGGLE */}
+          <section className="w-full px-margin-mobile md:px-margin lg:px-margin-desktop pt-space-xl pb-space-lg text-center">
+            {PRICING_CONFIG.isDraft && (
+                <div className="inline-block mb-space-md px-3 py-1 bg-warning/10 text-warning text-caption font-caption rounded-full">
+                    Draft Pricing - Not Final
+                </div>
+            )}
+            <h1 className="font-headline-xl text-headline-xl text-on-surface tracking-tight mb-space-md">
+              Transparent, high-leverage plans.
+            </h1>
+            <p className="font-body-lg text-body-lg text-slate-muted max-w-2xl mx-auto mb-space-xl">
+              Select the tier that matches your career trajectory. Cancel anytime.
+              No hidden fees, and zero data monetization.
+            </p>
+
+            {/* Billing Toggle */}
+            <div className="inline-flex items-center p-1 bg-surface-card border border-border-lavender rounded-xl shadow-sm mb-space-lg">
+              <button
+                className={`px-space-md py-space-sm rounded-lg font-label-md text-label-md transition-all duration-300 cursor-pointer ${billing === 'monthly' ? 'bg-primary text-on-primary shadow-md' : 'text-on-surface-variant hover:text-on-surface'}`}
+                onClick={() => setBilling('monthly')}
+              >
+                Monthly Billing
+              </button>
+              <button
+                className={`flex items-center gap-space-xs px-space-lg py-space-sm rounded-full font-label-md text-label-md transition-all duration-300 cursor-pointer ${billing === 'annual' ? 'bg-primary text-on-primary shadow-md' : 'text-on-surface-variant hover:text-on-surface'}`}
+                onClick={() => setBilling('annual')}
+              >
+                Annual Billing
+                <span
+                  className={`px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-wider ${
+                    billing === "annual"
+                      ? "bg-surface-blush-subtle text-primary"
+                      : "bg-surface-container-high text-primary"
+                  }`}
+                >
+                  Save 20%
+                </span>
+              </button>
+            </div>
+          </section>
+
+          {/* SECTION 2: PRICING CARDS */}
+          <section className="w-full px-margin-mobile md:px-margin lg:px-margin-desktop pb-space-xl z-10 relative">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-space-lg">
+              {PRICING_CONFIG.tiers.map((tier) => (
+                <div key={tier.id} className={`bg-surface-card rounded-2xl p-space-xl shadow-sm flex flex-col h-full hover:shadow-md transition-shadow relative ${tier.highlighted ? 'border-[2px] border-primary transform md:-translate-y-4 shadow-xl' : 'border border-border-lavender'}`}>
+                  {tier.badge && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary-container to-secondary text-on-primary font-label-sm text-label-sm px-space-md py-1 rounded-full whitespace-nowrap shadow-sm">
+                        {tier.badge}
+                    </div>
+                  )}
+                  <div className={`mb-space-md ${tier.highlighted ? 'pt-2' : ''}`}>
+                    <h3 className="font-headline-md text-headline-md text-on-surface mb-2 flex items-center gap-2">
+                      {tier.name}
+                      {tier.icon && (
+                        <span className="material-symbols-outlined text-[20px] text-secondary">
+                          {tier.icon}
+                        </span>
+                      )}
+                    </h3>
+                    <p className="font-body-sm text-body-sm text-slate-muted min-h-[40px]">
+                      {tier.description}
+                    </p>
+                  </div>
+                  <div className="mb-space-lg">
+                    <span className="font-headline-xl text-headline-xl text-on-surface">
+                      {tier.price.monthly === "Custom" ? "Custom" : `$${billing === "annual" ? tier.price.annual : tier.price.monthly}`}
+                    </span>
+                    {tier.price.monthly !== "Custom" && (
+                        <span className="font-body-sm text-body-sm text-slate-muted">
+                        /mo
+                        </span>
+                    )}
+                    <div className={`font-caption text-caption text-slate-muted mt-1 ${tier.price.monthly === 'Custom' ? 'opacity-0' : ''}`}>
+                      {billing === "annual" && tier.price.annual !== "Custom"
+                        ? `Billed $${Number(tier.price.annual) * 12} annually`
+                        : "Billed monthly"}
+                    </div>
+                  </div>
+                  <Link
+                    className={`w-full text-center font-label-md text-label-md py-space-sm rounded-xl transition-all mb-space-lg active:scale-95 ${tier.highlighted ? 'text-on-primary bg-primary hover:bg-primary-container shadow-md' : 'text-on-surface bg-surface-ground border border-border-lavender hover:bg-surface-blush-subtle hover:text-primary hover:border-primary/50'}`}
+                    to={tier.ctaLink}
+                  >
+                    {tier.ctaLabel}
+                  </Link>
+                  <div className="flex flex-col gap-space-sm mt-auto border-t border-border-lavender pt-space-lg">
+                    <span className="font-label-sm text-label-sm text-on-surface">
+                      Includes:
+                    </span>
+                    {tier.features.map((feature, idx) => (
+                        <div key={idx} className="flex items-start gap-space-sm">
+                        <span className="material-symbols-outlined text-primary text-[20px] mt-0.5 shrink-0">
+                            check_circle
+                        </span>
+                        <span className="font-body-sm text-body-sm text-on-surface">
+                            {feature}
+                        </span>
+                        </div>
+                    ))}
+                    {tier.notIncluded.map((feature, idx) => (
+                        <div key={idx} className="flex items-start gap-space-sm">
+                        <span className="material-symbols-outlined text-slate-muted text-[20px] mt-0.5 shrink-0 opacity-50">
+                            cancel
+                        </span>
+                        <span className="font-body-sm text-body-sm text-slate-muted">
+                            {feature}
+                        </span>
+                        </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+
+        {/* SECTION 4: DETAILED COMPARISON TABLE */}
+        <section className="w-full bg-surface-card border-t border-border-lavender py-space-xl hidden md:block">
+          <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin lg:px-margin-desktop">
+            <h2 className="font-headline-md text-headline-md text-on-surface text-center mb-space-lg">
+              Compare Features
+            </h2>
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse">
+                <thead>
+                  <tr>
+                    <th className="text-left py-space-md px-space-md border-b-2 border-border-lavender w-2/5"></th>
+                    <th className="text-center py-space-md px-space-md border-b-2 border-border-lavender font-headline-sm text-headline-sm text-on-surface w-1/5">
+                      Professional
+                    </th>
+                    <th className="text-center py-space-md px-space-md border-b-2 border-primary font-headline-sm text-headline-sm text-primary bg-surface-blush-subtle/50 w-1/5 rounded-t-lg">
+                      Executive
+                    </th>
+                    <th className="text-center py-space-md px-space-md border-b-2 border-border-lavender font-headline-sm text-headline-sm text-on-surface w-1/5">
+                      Concierge
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border-lavender/50">
+                  <tr className="bg-surface-ground">
+                    <td
+                      colSpan={4}
+                      className="py-space-sm px-space-lg font-label-md text-label-md text-on-surface"
+                    >
+                      Core AI Capabilities
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-surface-blush-subtle/30 transition-colors">
+                    <td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">
+                      Fact-Grounded CV Tailoring
+                    </td>
+                    <td className="py-space-md px-space-md text-center font-body-sm text-body-sm text-slate-muted">
+                      30/mo
+                    </td>
+                    <td className="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-primary bg-surface-blush-subtle/50">
+                      150/mo
+                    </td>
+                    <td className="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-on-surface">
+                      Unlimited
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-surface-blush-subtle/30 transition-colors">
+                    <td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">
+                      Executive Cover Letters
+                    </td>
+                    <td className="py-space-md px-space-md text-center font-body-sm text-body-sm text-slate-muted">
+                      30/mo
+                    </td>
+                    <td className="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-primary bg-surface-blush-subtle/50">
+                      150/mo
+                    </td>
+                    <td className="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-on-surface">
+                      Unlimited
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-surface-blush-subtle/30 transition-colors">
+                    <td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">
+                      Custom Voice Modeling
+                    </td>
+                    <td className="py-space-md px-space-md text-center">
+                      <span className="material-symbols-outlined text-slate-muted opacity-50">
+                        remove
+                      </span>
+                    </td>
+                    <td className="py-space-md px-space-md text-center bg-surface-blush-subtle/50">
+                      <span className="material-symbols-outlined text-primary">
+                        check
+                      </span>
+                    </td>
+                    <td className="py-space-md px-space-md text-center">
+                      <span className="material-symbols-outlined text-on-surface">
+                        check
+                      </span>
+                    </td>
+                  </tr>
+                  <tr className="bg-surface-ground">
+                    <td
+                      colSpan={4}
+                      className="py-space-sm px-space-lg font-label-md text-label-md text-on-surface"
+                    >
+                      Automation & Tracking
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-surface-blush-subtle/30 transition-colors">
+                    <td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">
+                      Application Tracking Vault
+                    </td>
+                    <td className="py-space-md px-space-md text-center">
+                      <span className="material-symbols-outlined text-on-surface-variant">
+                        check
+                      </span>
+                    </td>
+                    <td className="py-space-md px-space-md text-center bg-surface-blush-subtle/50">
+                      <span className="material-symbols-outlined text-primary">
+                        check
+                      </span>
+                    </td>
+                    <td className="py-space-md px-space-md text-center">
+                      <span className="material-symbols-outlined text-on-surface">
+                        check
+                      </span>
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-surface-blush-subtle/30 transition-colors">
+                    <td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">
+                      Gmail Integration
+                    </td>
+                    <td className="py-space-md px-space-md text-center">
+                      <span className="material-symbols-outlined text-slate-muted opacity-50">
+                        remove
+                      </span>
+                    </td>
+                    <td className="py-space-md px-space-md text-center bg-surface-blush-subtle/50">
+                      <span className="material-symbols-outlined text-primary">
+                        check
+                      </span>
+                    </td>
+                    <td className="py-space-md px-space-md text-center">
+                      <span className="material-symbols-outlined text-on-surface">
+                        check
+                      </span>
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-surface-blush-subtle/30 transition-colors">
+                    <td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">
+                      1-Click ATS Submission
+                    </td>
+                    <td className="py-space-md px-space-md text-center font-body-sm text-body-sm text-slate-muted">
+                      Manual Export
+                    </td>
+                    <td className="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-primary bg-surface-blush-subtle/50">
+                      Supported Platforms
+                    </td>
+                    <td className="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-on-surface">
+                      All Platforms
+                    </td>
+                  </tr>
+                  <tr className="bg-surface-ground">
+                    <td
+                      colSpan={4}
+                      className="py-space-sm px-space-lg font-label-md text-label-md text-on-surface"
+                    >
+                      Service & Security
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-surface-blush-subtle/30 transition-colors">
+                    <td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">
+                      Data Privacy
+                    </td>
+                    <td className="py-space-md px-space-md text-center font-body-sm text-body-sm text-slate-muted">
+                      Isolated DB Row
+                    </td>
+                    <td className="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-primary bg-surface-blush-subtle/50">
+                      Isolated DB Row
+                    </td>
+                    <td className="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-on-surface">
+                      Dedicated Instance
+                    </td>
+                  </tr>
+                  <tr className="hover:bg-surface-blush-subtle/30 transition-colors border-b border-border-lavender">
+                    <td className="py-space-md px-space-lg font-body-sm text-body-sm text-on-surface">
+                      Support SLA
+                    </td>
+                    <td className="py-space-md px-space-md text-center font-body-sm text-body-sm text-slate-muted">
+                      Community & Docs
+                    </td>
+                    <td className="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-primary bg-surface-blush-subtle/50 rounded-b-lg">
+                      Priority Email ({"< 4h"})
+                    </td>
+                    <td className="py-space-md px-space-md text-center font-body-sm text-body-sm font-bold text-on-surface">
+                      Dedicated Concierge & Strategy Call
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        {/* SECTION 5: FAQ ACCORDION */}
+        <section className="w-full bg-surface-ground py-space-xl border-t border-border-lavender">
+          <div className="max-w-3xl mx-auto px-margin-mobile md:px-margin">
+            <h2 className="font-headline-lg text-headline-lg text-on-surface text-center mb-space-xl">
+              Frequently Asked Questions
+            </h2>
+            <div className="flex flex-col gap-space-sm">
+              <div
+                className="p-space-lg rounded-xl bg-surface-card shadow-sm cursor-pointer"
+                onClick={() => toggleFaq(1)}
+              >
+                <div className="flex items-center justify-between">
+                  <h4 className="font-headline-sm text-headline-sm text-on-surface">
+                    How does the "Zero Blind Submissions" policy work?
+                  </h4>
+                  <span
+                    className={`material-symbols-outlined text-primary transition-transform duration-200 ${
+                      activeFaq === 1 ? "rotate-180" : ""
+                    }`}
+                  >
+                    expand_more
+                  </span>
+                </div>
+                {activeFaq === 1 && (
+                  <div className="mt-space-sm pt-space-sm font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                    We fundamentally oppose fully autonomous AI agents firing off
+                    applications without your consent. ApplyNora prepares
+                    everything—CVs, cover letters, and form data—but pauses at the
+                    final gate. You must explicitly click "Approve & Submit" for
+                    every single application. You retain absolute control over
+                    your career brand.
+                  </div>
+                )}
+              </div>
+
+              <div
+                className="p-space-lg rounded-xl bg-surface-card shadow-sm cursor-pointer"
+                onClick={() => toggleFaq(2)}
+              >
+                <div className="flex items-center justify-between">
+                  <h4 className="font-headline-sm text-headline-sm text-on-surface">
+                    Will I be charged unexpectedly after my trial or subscription
+                    expires?
+                  </h4>
+                  <span
+                    className={`material-symbols-outlined text-primary transition-transform duration-200 ${
+                      activeFaq === 2 ? "rotate-180" : ""
+                    }`}
+                  >
+                    expand_more
+                  </span>
+                </div>
+                {activeFaq === 2 && (
+                  <div className="mt-space-sm pt-space-sm font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                    Never. ApplyNora implements a strict Zero Surprise Renewal
+                    policy. You can choose "Manual Renewal" at checkout to
+                    authorize each monthly billing cycle explicitly. For
+                    auto-renewing subscriptions, we dispatch an advance email
+                    notification 72 hours before payment processing, and
+                    cancellations are effective instantly.
+                  </div>
+                )}
+              </div>
+
+              <div
+                className="p-space-lg rounded-xl bg-surface-card shadow-sm cursor-pointer"
+                onClick={() => toggleFaq(3)}
+              >
+                <div className="flex items-center justify-between">
+                  <h4 className="font-headline-sm text-headline-sm text-on-surface">
+                    What happens if I exhaust my fact-grounded drafts quota?
+                  </h4>
+                  <span
+                    className={`material-symbols-outlined text-primary transition-transform duration-200 ${
+                      activeFaq === 3 ? "rotate-180" : ""
+                    }`}
+                  >
+                    expand_more
+                  </span>
+                </div>
+                {activeFaq === 3 && (
+                  <div className="mt-space-sm pt-space-sm font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                    If you exceed your tier's monthly AI draft allowance, your
+                    existing documents, ATS templates, and tracking sync remain
+                    100% operational. You can either purchase a supplementary
+                    top-up draft pack through Paystack or instantly upgrade to the
+                    next tier for prorated access.
+                  </div>
+                )}
+              </div>
+
+              <div
+                className="p-space-lg rounded-xl bg-surface-card shadow-sm cursor-pointer"
+                onClick={() => toggleFaq(4)}
+              >
+                <div className="flex items-center justify-between">
+                  <h4 className="font-headline-sm text-headline-sm text-on-surface">
+                    Is my Gmail and CV data shared or used to train third-party AI
+                    models?
+                  </h4>
+                  <span
+                    className={`material-symbols-outlined text-primary transition-transform duration-200 ${
+                      activeFaq === 4 ? "rotate-180" : ""
+                    }`}
+                  >
+                    expand_more
+                  </span>
+                </div>
+                {activeFaq === 4 && (
+                  <div className="mt-space-sm pt-space-sm font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
+                    Absolutely not. We use restricted Google OAuth scopes solely to
+                    detect interview schedules and company responses. Your CV
+                    credentials and emails are isolated via Postgres Row-Level
+                    Security (RLS) and are never used to train public models or
+                    shared with outside recruiters.
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </>
   );
 }
-
-/* eslint-disable @typescript-eslint/no-unused-vars */
