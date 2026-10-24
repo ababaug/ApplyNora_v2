@@ -1,16 +1,17 @@
-import { Helmet } from 'react-helmet-async';
-import { Link, useParams } from 'react-router-dom';
 import { useState } from 'react';
 
+import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
+
 export function BlogPage() {
-  const [activeCategory, setActiveCategory] = useState('all');
+  const [activeCategory, setActiveCategory] = useState("all");
 
   const categories = [
-    { id: 'all', label: 'All Insights' },
-    { id: 'ai-gateway', label: 'AI in Recruiting' },
-    { id: 'privacy', label: 'Privacy' },
-    { id: 'strategy', label: 'Executive Strategy' },
-    { id: 'releases', label: 'Releases' },
+    { id: "all", label: "All Insights" },
+    { id: "ai-gateway", label: "AI in Recruiting" },
+    { id: "privacy", label: "Privacy" },
+    { id: "strategy", label: "Executive Strategy" },
+    { id: "releases", label: "Releases" }
   ];
 
   return (
@@ -23,7 +24,7 @@ export function BlogPage() {
         <div className="relative w-full overflow-hidden bg-surface-ground">
           <section className="w-full px-margin-mobile md:px-margin lg:px-margin-desktop pt-space-xl pb-space-lg text-center">
             <h1 className="font-headline-xl text-headline-xl text-on-surface tracking-tight mb-space-md">
-              Insights & Research
+              Insights &amp; Research
             </h1>
             <p className="font-body-lg text-body-lg text-slate-muted max-w-2xl mx-auto">
               Analysis, methodologies, and technical perspectives on the modern
@@ -31,7 +32,6 @@ export function BlogPage() {
             </p>
           </section>
 
-          {/* Category Filter */}
           <section className="w-full px-margin-mobile md:px-margin lg:px-margin-desktop pb-space-lg">
             <div className="max-w-4xl mx-auto flex flex-wrap gap-space-sm justify-center">
               {categories.map((cat) => (
@@ -40,8 +40,8 @@ export function BlogPage() {
                   onClick={() => setActiveCategory(cat.id)}
                   className={`px-space-md py-space-xs rounded-lg font-label-md text-label-md shadow-sm transition-all whitespace-nowrap ${
                     activeCategory === cat.id
-                      ? 'bg-gradient-to-r from-primary-container to-secondary text-on-primary'
-                      : 'bg-surface-card text-on-surface-variant hover:text-primary hover:bg-surface-blush-subtle'
+                      ? "bg-gradient-to-r from-primary-container to-secondary text-on-primary"
+                      : "bg-surface-card text-on-surface-variant hover:text-primary hover:bg-surface-blush-subtle"
                   }`}
                 >
                   {cat.label}
@@ -71,8 +71,6 @@ export function BlogPage() {
 }
 
 export function BlogArticlePage() {
-  const { slug } = useParams();
-
   return (
     <>
       <Helmet>
@@ -81,7 +79,7 @@ export function BlogArticlePage() {
       </Helmet>
       <div className="flex flex-col w-full min-h-[80vh] items-center justify-center bg-surface-ground">
         <h1 className="font-headline-lg text-headline-lg text-on-surface mb-space-sm">
-          Article: {slug || 'Not Found'}
+          Article Not Found
         </h1>
         <p className="font-body-md text-body-md text-slate-muted mb-space-lg">
           The requested publication could not be located.
