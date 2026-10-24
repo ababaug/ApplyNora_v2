@@ -4,7 +4,9 @@
   "description": "ApplyNora project foundation",
   "private": true,
   "scripts": {
-    "test": "vitest run"
+    "test": "vitest run",
+    "build": "pnpm -r run build",
+    "lint": "pnpm -r run lint"
   },
   "packageManager": "pnpm@10.30.3",
   "devDependencies": {
