@@ -1,4 +1,3 @@
-
 import eslint from '@eslint/js';
 import tseslint from 'typescript-eslint';
 
@@ -14,10 +13,7 @@ export default tseslint.config(
     ]
   },
   {
-    files: [
-      "apps/web/src/pages/*.tsx",
-      "apps/web/src/components/layout/*.tsx"
-    ],
+    files: ["apps/web/src/pages/*.tsx", "apps/web/src/components/layout/*.tsx"],
     rules: {
       "@typescript-eslint/no-unused-expressions": "off",
       "no-undef": "off",

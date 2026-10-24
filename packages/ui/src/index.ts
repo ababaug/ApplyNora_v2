@@ -1,2 +1,1 @@
-
-export * from './Button.js';
+export default {}

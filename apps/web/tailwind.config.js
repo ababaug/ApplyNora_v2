@@ -1,12 +1,8 @@
-
-import defaultTheme from 'tailwindcss/defaultTheme';
-
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "../../packages/ui/src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
     extend: {
@@ -88,7 +84,6 @@ export default {
         "gutter": "1.5rem"
       },
       fontFamily: {
-        sans: ['Plus Jakarta Sans', ...defaultTheme.fontFamily.sans],
         "label-md": ["Plus Jakarta Sans"],
         "headline-lg": ["Plus Jakarta Sans"],
         "headline-lg-mobile": ["Plus Jakarta Sans"],
@@ -103,20 +98,20 @@ export default {
         "headline-xl": ["Plus Jakarta Sans"]
       },
       fontSize: {
-        "label-md": ["0.875rem", { lineHeight: "1.4", letterSpacing: "0.01em", fontWeight: "600" }],
-        "headline-lg": ["2.25rem", { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "700" }],
-        "headline-lg-mobile": ["1.75rem", { lineHeight: "1.25", letterSpacing: "-0.015em", fontWeight: "700" }],
-        "label-sm": ["0.75rem", { lineHeight: "1.3", letterSpacing: "0.025em", fontWeight: "600" }],
-        "body-md": ["0.9375rem", { lineHeight: "1.55", letterSpacing: "0", fontWeight: "400" }],
-        "headline-xl-mobile": ["2.25rem", { lineHeight: "1.2", letterSpacing: "-0.025em", fontWeight: "800" }],
-        "caption": ["0.6875rem", { lineHeight: "1.25", letterSpacing: "0.03em", fontWeight: "500" }],
-        "body-sm": ["0.8125rem", { lineHeight: "1.5", letterSpacing: "0.005em", fontWeight: "400" }],
-        "body-lg": ["1.125rem", { lineHeight: "1.6", letterSpacing: "0", fontWeight: "400" }],
-        "headline-sm": ["1.25rem", { lineHeight: "1.35", letterSpacing: "-0.005em", fontWeight: "600" }],
-        "headline-md": ["1.5rem", { lineHeight: "1.3", letterSpacing: "-0.01em", fontWeight: "600" }],
-        "headline-xl": ["3.5rem", { lineHeight: "1.15", letterSpacing: "-0.03em", fontWeight: "800" }]
+        "label-md": ["0.875rem", { "lineHeight": "1.4", "letterSpacing": "0.01em", "fontWeight": "600" }],
+        "headline-lg": ["2.25rem", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+        "headline-lg-mobile": ["1.75rem", { "lineHeight": "1.25", "letterSpacing": "-0.015em", "fontWeight": "700" }],
+        "label-sm": ["0.75rem", { "lineHeight": "1.3", "letterSpacing": "0.025em", "fontWeight": "600" }],
+        "body-md": ["0.9375rem", { "lineHeight": "1.55", "letterSpacing": "0", "fontWeight": "400" }],
+        "headline-xl-mobile": ["2.25rem", { "lineHeight": "1.2", "letterSpacing": "-0.025em", "fontWeight": "800" }],
+        "caption": ["0.6875rem", { "lineHeight": "1.25", "letterSpacing": "0.03em", "fontWeight": "500" }],
+        "body-sm": ["0.8125rem", { "lineHeight": "1.5", "letterSpacing": "0.005em", "fontWeight": "400" }],
+        "body-lg": ["1.125rem", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+        "headline-sm": ["1.25rem", { "lineHeight": "1.35", "letterSpacing": "-0.005em", "fontWeight": "600" }],
+        "headline-md": ["1.5rem", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+        "headline-xl": ["3.5rem", { "lineHeight": "1.15", "letterSpacing": "-0.03em", "fontWeight": "800" }]
       }
-    }
+    },
   },
-  plugins: []
-};
+  plugins: [],
+}
