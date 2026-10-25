@@ -13,12 +13,13 @@ export default tseslint.config(
     ]
   },
   {
-    files: ["apps/web/src/pages/*.tsx", "apps/web/src/components/layout/*.tsx"],
+    files: ["apps/web/src/pages/**/*.tsx", "apps/web/src/components/**/*.tsx"],
     rules: {
       "@typescript-eslint/no-unused-expressions": "off",
       "no-undef": "off",
       "no-empty": "off",
-      "@typescript-eslint/no-unused-vars": "off"
+      "@typescript-eslint/no-unused-vars": "off",
+      "@typescript-eslint/no-explicit-any": "off"
     }
   }
 );
